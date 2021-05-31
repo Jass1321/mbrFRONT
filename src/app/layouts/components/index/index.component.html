@@ -1,0 +1,84 @@
+<mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav #sidenav class="example-sidenav"  
+      mode="side" opened="true" 
+      (mouseenter)="mouseenter()" 
+      (mouseleave)="mouseleave()"
+      >
+      
+      <mat-nav-list>
+  
+        <div (click)="isExpanded = !isExpanded">
+          <mat-list-item style="margin-top: 30px; margin-bottom: 30px;"> 
+            <div class="perfil-card"
+             *ngIf="isExpanded ||  isShowing">
+              <div class="perfil">
+                <img src="https://www.mibeatriz.com.pe/img/logo.png">
+              </div>
+            </div>
+          </mat-list-item>
+        </div>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/tablero" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Tablero
+          </span>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/maestro" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Maestro
+          </span>
+          <mat-icon mat-list-icon svgIcon="maestro_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/ventas" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Ventas
+          </span>
+          <mat-icon mat-list-icon svgIcon="ventas_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/gastos" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Gastos
+          </span>
+          <mat-icon mat-list-icon svgIcon="gastos_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/compras" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Compras
+          </span>
+          <mat-icon mat-list-icon svgIcon="compras_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/almacen" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Almacen
+          </span>
+          <mat-icon mat-list-icon svgIcon="almacen_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/finanzas" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Finanzas
+          </span>
+          <mat-icon mat-list-icon svgIcon="finanzas_icon"></mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/rrhh" style="color: white;">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> RR HH
+          </span>
+          <mat-icon mat-list-icon>groups</mat-icon>
+        </mat-list-item>
+  
+        <!--
+        <mat-list-item style="color: white;" *ngIf="isLogged" (click)="onLogOut()">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Logout
+          </span>
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        </mat-list-item> -->
+        <mat-list-item style="color: white;">
+            <span class="full-width" *ngIf="isExpanded ||  isShowing"> Logout
+            </span>
+            <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        </mat-list-item> 
+            
+      </mat-nav-list> 
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
