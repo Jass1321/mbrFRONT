@@ -12,6 +12,10 @@ const routes: Routes = [
         path: 'tercero',
         loadChildren: () => import('./components/tercero/tercero.module').then( m => m.TerceroModule)
       },
+      {
+        path: 'catalogo',
+        loadChildren: () => import('./components/catalogo/catalogo.module').then( m => m.CatalogoModule)
+      },
       {path: 'banco', component: BancoComponent},
     ]
   }

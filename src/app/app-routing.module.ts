@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'maestro', 
-        loadChildren: () => import('./maestro/maestro.module').then( m => m.MaestroModule),
+        loadChildren: () => import('./maestro/maestro.module').then( m => m.MaestroModule)
       },
     ]
   },
