@@ -1,14 +1,52 @@
-<nav mat-tab-nav-bar class="cabecera" >
-    <a mat-tab-link 
-       *ngFor="let link of navLinks"
-       [routerLink]="link.path"
-       routerLinkActive #rla="routerLinkActive"
-       [routerLinkActiveOptions]="{exact:true}"
-       [active]="rla.isActive"
-       [ngStyle]="{'background-color': rla.isActive? '#727176af':''}"
-       >
-      {{link.label}}
-    </a>
-</nav>
+<div class="animated fadeIn">
+  <div class="container-fluid">
+      <div class="row" >
+          <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+              <div class="card text-white" >
+                  <div class="card-body">
+                      <button type="button" routerLink="/maestro/tercero" class="btn btn-transparent p-1 float-left ">
+                          <mat-icon class="d-icons">groups</mat-icon>
+                      </button>
+                      <h2 class="card-title">Terceros</h2>
+                      <p class="card-text" > Clientes y Proveedores</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+              <div class="card text-white">
+                  <div class="card-body">
+                      <button type="button" routerLink="/maestro/banco"class="btn btn-transparent p-1 float-left ">
+                          <mat-icon class="d-icons">savings</mat-icon>
+                      </button>
+                      <h2 class="card-title">Bancos</h2>
+                      <p class="card-text" >Cuentas de la empresa</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+              <div class="card text-white">
+                  <div class="card-body">
+                      <button type="button" routerLink="/maestro/catalogo" class="btn btn-transparent p-1 float-left ">
+                          <mat-icon class="d-icons">collections_bookmark</mat-icon>
+                      </button>
+                      <h2 class="card-title">Catálogos</h2>
+                      <p class="card-text" >Bienes y Servicios</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+              <div class="card text-white">
+                  <div class="card-body">
+                      <button type="button" routerLink="/maestro/organizacion" class="btn btn-transparent p-1 float-left ">
+                          <mat-icon class="d-icons">apartment</mat-icon>
+                      </button>
+                      <h2 class="card-title">Organización</h2>
+                      <p class="card-text" >Departamentos y areas</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 <router-outlet></router-outlet>

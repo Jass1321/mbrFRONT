@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { OrganizacionRoutingModule } from './organizacion-routing.module';
 import { OrganizacionComponent } from './components/organizacion.component';
 
+//Plus
+import { MaterialMaestroModule } from '../../plus/material.maestro.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import { OrganizacionComponent } from './components/organizacion.component';
   ],
   imports: [
     CommonModule,
-    OrganizacionRoutingModule
+    OrganizacionRoutingModule,
+    MaterialMaestroModule
   ]
 })
 export class OrganizacionModule { }

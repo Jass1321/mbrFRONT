@@ -7,3 +7,58 @@
  font-size:  18px;
  color:darkblue;
 }
+
+/* CARDS */
+.card{
+  background-color: #727176;
+}
+
+.container-fluid{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.col {
+  margin-bottom: 15px ;
+}
+
+.d-icons{
+  height:60px !important;
+  width:60px !important;
+  font-size:60px !important;
+  color: white;
+}
+
+
+/* @media only screen and (max-width:900px){
+} */
+
+.divStyle{
+  padding-top: 40px;
+}
+
+.container{ position: relative;}
+
+#mainNavbar{
+  position: fixed;
+  top:20px;
+}
+
+
+.container2 {
+  place-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.container2 > * {
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.mat-tree {
+  width: 300px;
+}
+
+.grid-all{
+  height: 100%;
+  }
+  
