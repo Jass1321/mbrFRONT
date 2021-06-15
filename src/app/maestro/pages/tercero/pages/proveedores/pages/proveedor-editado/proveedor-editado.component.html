@@ -1,0 +1,41 @@
+<div class="container" *ngIf="proveedor">
+    <div class="row mt-5">
+        <div class="col-md-4 mx-auto">
+            <form (ngSubmit)="Actualizar()" novalidate #f="ngForm">
+               
+                <div class="form-group">
+                    <label for="codigo">Codigo</label>
+                    <input type="text" class="form-control" id="codigo" name="codigo"
+                    [(ngModel)]="proveedor.codigo" required>
+                </div>
+                <div class="form-group">
+                    <label for="ruc">RUC</label>
+                    <input type="number" class="form-control" id="ruc" name="ruc"
+                    [(ngModel)]="proveedor.ruc" required>
+                </div>
+                <div class="form-group">
+                    <label for="razonSocial">Razon Social</label>
+                    <input type="text" class="form-control" id="razonSocial" name="razonSocial"
+                    [(ngModel)]="proveedor.nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="fechaInicio">Fecha de Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"
+                    [(ngModel)]="proveedor.fechaInicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="rubroActividad">Rubro de Actividad</label>
+                    <input type="text" class="form-control" id="rubroActividad" name="rubroActividad"
+                    [(ngModel)]="proveedor.rubro" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion"
+                    [(ngModel)]="proveedor.comentario" required>
+                </div>
+                
+                <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div>

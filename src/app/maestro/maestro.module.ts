@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//external
-import { ToastrModule } from 'ngx-toastr';
-import { RouterModule } from '@angular/router';
+
 import { MaestroRoutingModule } from './maestro-routing.module';
+import { MaestroComponent } from './components/maestro.component';
+
+//Plus
 import { MaterialMaestroModule } from './plus/material.maestro.module';
-
-import { TableroComponent } from './tablero/tablero.component';
-
-import { BancoComponent } from './components/banco/banco.component';
-import { OrganizacionComponent } from './components/organizacion/organizacion.component';
+import { NgxBootstrapMaestroModule } from './plus/ngx-bootstrap.maestro.module';
 
 @NgModule({
   declarations: [
-    BancoComponent,
-    OrganizacionComponent,
-    TableroComponent
+    MaestroComponent
   ],
   imports: [
     CommonModule,
     MaestroRoutingModule,
+
     MaterialMaestroModule,
-    ToastrModule.forRoot(),
-    RouterModule
+    NgxBootstrapMaestroModule
   ]
 })
 export class MaestroModule { }

@@ -1,22 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BancoComponent } from './components/banco/banco.component';
 
-import { TableroComponent } from './tablero/tablero.component';
+import { MaestroComponent } from './components/maestro.component';
 
 const routes: Routes = [
   {
-    path: '',component: TableroComponent,
+    path: '',component: MaestroComponent,
     children: [
       {
         path: 'tercero',
-        loadChildren: () => import('./components/tercero/tercero.module').then( m => m.TerceroModule)
+        loadChildren: () => import('./pages/tercero/tercero.module').then( m => m.TerceroModule)
+      },
+      {
+        path: 'banco',
+        loadChildren: () => import('./pages/banco/banco.module').then( m => m.BancoModule)
       },
       {
         path: 'catalogo',
-        loadChildren: () => import('./components/catalogo/catalogo.module').then( m => m.CatalogoModule)
+        loadChildren: () => import('./pages/catalogo/catalogo.module').then( m => m.CatalogoModule)
       },
-      {path: 'banco', component: BancoComponent},
+      {
+        path: 'organizacion',
+        loadChildren: () => import('./pages/organizacion/organizacion.module').then( m => m.OrganizacionModule)
+      } 
     ]
   }
 ];
