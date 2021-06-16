@@ -1,84 +1,120 @@
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #sidenav class="example-sidenav"  
+    <mat-sidenav #sidenav 
+    class=" example-sidenav d-flex flex-column flex-shrink-0  align-items-stretch " 
       mode="side" opened="true" 
       (mouseenter)="mouseenter()" 
       (mouseleave)="mouseleave()"
       >
       
-      <mat-nav-list>
-  
+      <mat-nav-list >
         <div (click)="isExpanded = !isExpanded">
           <mat-list-item style="margin-top: 30px; margin-bottom: 30px;"> 
-            <div class="perfil-card"
+            <div class="perfil-card" 
              *ngIf="isExpanded ||  isShowing">
               <div class="perfil">
-                <img src="https://www.mibeatriz.com.pe/img/logo.png">
+                <img src="../../../../assets/images/logo.png" alt="">
               </div>
             </div>
           </mat-list-item>
         </div>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/tablero" style="color: white;">
-          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Tablero
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Dashboard
           </span>
           <mat-icon mat-list-icon>dashboard</mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/maestro" style="color: white;">
-          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Maestro
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/maestro">
+          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Master
           </span>
           <mat-icon mat-list-icon svgIcon="maestro_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/ventas" style="color: white;">
+        <h5  *ngIf="isExpanded ||  isShowing" class="subtitulo text-secondary">OPERACIONES</h5>
+        
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/ventas" >
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> Ventas
           </span>
           <mat-icon mat-list-icon svgIcon="ventas_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/gastos" style="color: white;">
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/gastos">
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> Gastos
           </span>
           <mat-icon mat-list-icon svgIcon="gastos_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/compras" style="color: white;">
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/compras">
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> Compras
           </span>
           <mat-icon mat-list-icon svgIcon="compras_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/almacen" style="color: white;">
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/almacen">
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> Almacen
           </span>
           <mat-icon mat-list-icon svgIcon="almacen_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/finanzas" style="color: white;">
+        <mat-list-item routerLinkActive="list-item-active" routerLink="/finanzas">
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> Finanzas
           </span>
           <mat-icon mat-list-icon svgIcon="finanzas_icon"></mat-icon>
         </mat-list-item>
   
-        <mat-list-item routerLinkActive="list-item-active" routerLink="/rrhh" style="color: white;">
+        <mat-list-item  routerLinkActive="list-item-active" routerLink="/rrhh">
           <span class="full-width" *ngIf="isExpanded ||  isShowing"> RR HH
           </span>
           <mat-icon mat-list-icon>groups</mat-icon>
         </mat-list-item>
-  
-        <!--
-        <mat-list-item style="color: white;" *ngIf="isLogged" (click)="onLogOut()">
-          <span class="full-width" *ngIf="isExpanded ||  isShowing"> Logout
-          </span>
-          <mat-icon mat-list-icon>exit_to_app</mat-icon>
-        </mat-list-item> -->
-        <mat-list-item style="color: white;">
-            <span class="full-width" *ngIf="isExpanded ||  isShowing"> Logout
-            </span>
-            <mat-icon mat-list-icon>exit_to_app</mat-icon>
-        </mat-list-item> 
-            
       </mat-nav-list> 
+      <mat-divider></mat-divider>
+      <!--AVATAR-->
+      <mat-nav-list >
+        <mat-card class="user-card">
+          <mat-card-header >
+            <div mat-card-avatar class="example-header-image" [matMenuTriggerFor]="menu"></div>
+            <mat-menu #menu="matMenu">
+              <!-- subtittle-->
+              <div class=" dropdown-header noti-title">
+                <h5 class="text-overflow m-0">Welcome !</h5>
+              </div>
+              <!-- item-->
+              <button mat-menu-item >
+                <mat-icon>account_circle</mat-icon>
+                <span>My Account</span>
+              </button>
+              <!-- item-->
+              <button  mat-menu-item >
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+              </button>
+              <!-- item-->
+              <button  mat-menu-item >
+                <mat-icon>info</mat-icon>
+                <span>Help</span>
+              </button>
+              <!-- item-->
+              <!--
+                <mat-list-item style="color: white;" *ngIf="isLogged" (click)="onLogOut()">
+                  <span class="full-width" *ngIf="isExpanded ||  isShowing"> Logout
+                  </span>
+                  <mat-icon mat-list-icon>exit_to_app</mat-icon>
+                </mat-list-item> 
+              -->
+              <button mat-menu-item disabled>
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+
+            <div *ngIf="isExpanded ||  isShowing"   mat-card-title class="text-white">
+              <span style="font-size: 16px;"> Jassyra</span>
+            </div>
+            <div *ngIf="isExpanded ||  isShowing"   mat-card-subtitle class="text-secondary"><small>Admin</small></div>
+          </mat-card-header>
+        </mat-card>
+      </mat-nav-list>
     </mat-sidenav>
     <router-outlet></router-outlet>
   </mat-sidenav-container>

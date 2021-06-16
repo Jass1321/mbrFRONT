@@ -6,19 +6,21 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider'
 //Pages
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
     imports: [
         MatTabsModule,
         MatDialogModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        MatCardModule
     ],
     exports: [
         MatTabsModule,
         MatDialogModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        MatCardModule
     ]
 })
 export class MaterialMaestroModule {}

@@ -44,7 +44,6 @@ export class IndexComponent implements OnInit {
   }
 
  
-
   /*CERRAR SESION
   isLogged = false;
   ngOnInit(): void {
