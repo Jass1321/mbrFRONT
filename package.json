@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
     "@schematics/angular": "^9.1.0",
+    "angular-breadcrumb": "^0.5.0",
+    "angular-breadcrumbs": "^0.5.3",
     "bootstrap": "4.1.1",
     "highcharts": "^9.1.0",
     "highcharts-angular": "^2.10.0",

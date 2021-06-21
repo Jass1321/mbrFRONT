@@ -33,7 +33,6 @@ export class ProveedorNuevoComponent implements OnInit {
                                     this.fechaInicio, 
                                     this.rubro, 
                                     this.comentario);
-    this.proveedorService.save(proveedor).subscribe
     this.proveedorService.save(proveedor).subscribe(
       data=>{
         this.toastr.success('Producto creado!', 'OK!', {

@@ -5,13 +5,15 @@
 
 .container-fluid{
   margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 .col {
   margin-bottom: 15px ;
 }
 
+.card-title{
+  font-size:18px 
+}
 .d-icons{
   height:60px !important;
   width:60px !important;

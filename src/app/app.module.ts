@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 //Solo una vez LAZY LOADING
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
 //Rutas principales
 import { IndexComponent } from './layouts/components/index/index.component';
 import { Error404Component } from './layouts/page/error404/error404.component';
@@ -29,7 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MateriaLayoutslModule
+    MateriaLayoutslModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

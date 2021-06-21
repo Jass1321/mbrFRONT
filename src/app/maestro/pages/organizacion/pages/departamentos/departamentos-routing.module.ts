@@ -14,7 +14,6 @@ const routes: Routes = [
     children: [
       {path: 'list', component: DepartamentoListadoComponent},
       {path: 'detail/:id', component: DepartamentoDetalleComponent},
-      {path: 'add', component: DepartamentoNuevoComponent},
       {path: 'edit/:id', component: DepartamentoEditadoComponent},
     ]
   },

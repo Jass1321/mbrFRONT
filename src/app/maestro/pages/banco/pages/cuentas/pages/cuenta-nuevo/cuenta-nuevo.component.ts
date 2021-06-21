@@ -48,7 +48,8 @@ export class CuentaNuevoComponent implements OnInit {
   guardar(): void {
     this.cuentaService.saveCuenta(this.cuentaForm.value).subscribe(resp => {
       this.cuentaForm.reset();
-      this.cuentas=this.cuentas.filter((cuenta: { id: any; }) => resp.id!==cuenta.id);
+      this.cuentas=this.cuentas.filter(
+        (cuenta: { id: any; }) => resp.id!==cuenta.id);
       this.cuentas.push(resp);
     },
       error => { console.error(error) }

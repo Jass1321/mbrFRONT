@@ -1,0 +1,88 @@
+.normal-form{
+    display: grid;
+   grid-template-columns: 20% 80%;
+}
+
+.subtitulo{
+height: 40px;
+font-size: 16px;
+}
+
+/*TABLA*/
+.signo{
+    margin-left: 5%;
+    margin-right: 5%;
+    color: grey;
+}
+.nombre{
+    padding-left: 30px;
+    font-weight: 500;
+}
+
+table.table tr td{
+    color: grey;
+    font-weight: 300;
+}
+
+table.table tr th, table.table tr td {
+    border-color: #e9e9e9;
+    padding: 12px 12px;
+    vertical-align: middle;
+    text-shadow: white;
+   
+}
+
+
+.pag{
+    margin-left: 5%;
+    margin-right: 5%;
+    color: grey;
+}
+
+.pagination {
+    float: right;
+    margin: 5px 50px 40px 6px;
+}
+
+.cardepa{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+
+
+
+
+
+
+
+
+
+.grid-titulo {
+    display: grid;
+    grid-template-columns: 35px 35px 100%;
+}
+
+.titulo{
+    margin-top: 5px;
+}
+
+
+
+@media only screen and (max-width:1000px){
+  
+    .titulo{
+        margin-top: 3px;
+    }
+    
+    .cardepa{
+        margin-left:unset;
+        margin-right: unset;
+    }
+    
+    
+    
+    
+    
+}

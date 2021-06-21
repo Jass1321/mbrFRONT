@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Departamento } from '../../../../models/departamento';
-import { ToastrService } from 'ngx-toastr';
-import { DepartamentoService } from '../../../../services/departamento.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Departamento } from '../../../../models/departamento';
+import { DepartamentoService } from '../../../../services/departamento.service';
 
 @Component({
   selector: 'app-departamento-nuevo',
@@ -15,23 +15,20 @@ export class DepartamentoNuevoComponent implements OnInit {
   alert: boolean = false;
 
   constructor(
+    private router: Router,
+    private dialogRef : MatDialogRef<DepartamentoNuevoComponent>,
     private depService: DepartamentoService,
-    private toastr: ToastrService,
-    private router: Router
-  ) { }
-
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) { }
+ 
+ 
   ngOnInit(): void {
   }
-
+  
   onSubmit() {
     this.depService.createDepartamento(this.dep).subscribe(
-       data=>{
+      data => {
         this.alert = true;
-        this.toastr.success('Producto creado!', 'OK!', {
-          timeOut: 10000,
-          positionClass: 'toast-top-left',
-        });
-     /*  this.router.navigate(['/maestro/organizacion/departamentos/list']); */
       },
       error => console.log(error));
   }
@@ -40,3 +37,11 @@ export class DepartamentoNuevoComponent implements OnInit {
   }
 
 }
+
+  /* //---------------------Cerrar dialogo
+  onClose(): void {
+    //this.proveedorService.form.reset();
+    //this.proveedorService.initializeFormGroup();
+    this.dialogRef.close();
+    this.router.navigate(['/maestro/organizacion/departamentos/list'])
+  } */

@@ -5,7 +5,7 @@ import { OrganizacionComponent } from './components/organizacion.component';
 
 const routes: Routes = [
   { 
-    path: '',component: OrganizacionComponent,
+    path: '',component: OrganizacionComponent, data: { breadcrumb: 'Organización'},
     children: [
       {
         path: 'departamentos',

@@ -51,7 +51,13 @@ export class DepartamentoDetalleComponent implements OnInit {
     this.areaService.getAreasById(this.idDep).subscribe(
       data => {
         this.areas = data;
+        this.isFirst = data.first;
+        this.isLast = data.last;
         this.totalPages = new Array(data['totalPages']);
+        console.log(data);
+      },
+      err => {
+        console.log(err);
       });
   }
 
@@ -76,5 +82,35 @@ export class DepartamentoDetalleComponent implements OnInit {
 
   closeAlert(){
     this.alert = false;
+  }
+
+  //PAGINACION
+  sort(): void {
+    this.asc = !this.asc;
+    this.getAllAreas();
+  }
+
+  rewind(): void {
+    if (!this.isFirst) {
+      this.page--;
+      this.getAllAreas();
+    }
+  }
+
+  forward(): void {
+    if (!this.isLast) {
+      this.page++;
+      this.getAllAreas();
+    }
+  }
+
+  setPage(page: number): void {
+    this.page = page;
+    this.getAllAreas();
+  }
+  
+  setOrder(order: string): void {
+    this.order = order;
+    this.getAllAreas();
   }
 }
