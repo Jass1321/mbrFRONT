@@ -2,35 +2,21 @@
   <!-- START LIST DEPA-->
   <div class="col-md-6 ">
     <div class=" p-5 rounded-3  bg-white ">
-      <!-- SUBTITULO-->
-      <div class="normal-form">
-        <div>
-            <button mat-flat-button  color="primary" (click)="openNewDep()">
-              <mat-icon class="btn-add">add</mat-icon>Departamentos
-            </button> 
-        </div>
-        <div align="end">
-          <mat-form-field>
-            <input matInput  >
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+      <!-- NEW DEPA-->
+      <div class="container container-fluid">
+        <form (ngSubmit)="createDep()" [formGroup]="depForm" >
+          <div class="form-group" >
+            <div class="input-group mb-3">
+              <input type="text"  class="name form-control"  formControlName="nombre">
+              <button mat-button type="submit" color="primary" [disabled]="depForm.invalid">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
       
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item >
-              <mat-icon>get_app</mat-icon>
-              <span>Exportar</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>delete</mat-icon>
-              <span>Remove All</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div> 
-      <!-- DATA DEPA-->
+      <!-- LIST DEPA-->
       <div class="container">
         <table class="table table-sm  table-hover">
           <thead>
@@ -56,7 +42,7 @@
               <td>{{dep.nombre}}</td>
               <td align="end" >
                 <a (click)="viewAreas(dep.id)"><i class="signo fa fa-eye"></i></a>  
-                <a (click)="updateDep(dep.id)"><i class="signo fas fa-edit"></i></a>  
+                <a (click)="updateDep(dep)"><i class="signo fas fa-edit"></i></a>  
                 <a (click)="deleteDep(dep.id)"><i class="signo fas fa-trash"></i></a>  
               </td>
             </tr>
@@ -70,7 +56,7 @@
             <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindDep()"></i>
           </li>
           <li class="page-item"> 
-            <span *ngFor="let p of totalPages; let i = index">
+            <span *ngFor="let p of totalPagesDep; let i = index">
               <a style="cursor: pointer;" (click)="setPageDep(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
             </span>
           </li>
@@ -154,7 +140,7 @@
               <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindArea()"></i>
             </li>
             <li class="page-item"> 
-              <span *ngFor="let p of totalPages; let i = index">
+              <span *ngFor="let p of totalPagesArea; let i = index">
                 <a style="cursor: pointer;" (click)="setPageArea(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
               </span>
             </li>

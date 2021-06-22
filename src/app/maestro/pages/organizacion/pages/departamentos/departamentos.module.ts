@@ -25,9 +25,7 @@ import { MaterialMaestroModule } from '../../../../plus/material.maestro.module'
     DepartamentosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialMaestroModule
-
-    
+    MaterialMaestroModule,
   ]
 })
 export class DepartamentosModule { }

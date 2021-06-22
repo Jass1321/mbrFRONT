@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Departamento } from '../../../../models/departamento';
 import { AreaService } from '../../../../services/area.service';
 import { DepartamentoService } from '../../../../services/departamento.service';
 import { DepartamentoEditadoComponent } from '../departamento-editado/departamento-editado.component';
@@ -18,11 +18,13 @@ export class DepartamentoListadoComponent implements OnInit {
 
   
   idDep!: number;
+  depForm!: FormGroup;
   alert: boolean = false;
 
   departamentos!: Array<any>;
   areas!: Array<any>;
-  totalPages!: Array<number>;
+  totalPagesDep!: Array<number>;
+  totalPagesArea!: Array<number>;
   
   //PAGINACION
   page = 0;
@@ -36,14 +38,33 @@ export class DepartamentoListadoComponent implements OnInit {
   constructor(
     private depService: DepartamentoService,
     private areaService: AreaService,
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService,
     private route: Router,
-    public fb: FormBuilder,
-    public dialog: MatDialog
+    public fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.depForm = this.fb.group({
+      id : [''],
+      nombre: ['', Validators.required]
+    });;
+
     this.getAllDepas();
     this.getAllAreas();
+  }
+
+  //CREATE DEPA
+  createDep(): void {
+    this.depService.createDepartamento(this.depForm.value).subscribe(
+      data=>{
+        this.depForm.reset();
+        this.getAllDepas();
+        },
+      err => {
+        console.log(err)
+      }
+    )
   }
 
   //READ DEPA
@@ -53,7 +74,7 @@ export class DepartamentoListadoComponent implements OnInit {
         this.departamentos = data.content; 
         this.isFirst = data.first;
         this.isLast = data.last;
-        this.totalPages = new Array(data['totalPages']);
+        this.totalPagesDep = new Array(data['totalPages']);
         console.log(data);
       },
       err => {
@@ -65,13 +86,14 @@ export class DepartamentoListadoComponent implements OnInit {
   viewAreas(id: number) {
     this.route.navigate(['/maestro/organizacion/departamentos/detail', id]);
   }
-
-  updateDep(id: number) {
-    this.route.navigate(['/maestro/organizacion/departamentos/edit', id],
-    );
-    
+  //UPDATE DEPA
+  updateDep(departamento: {id:any, nombre: string}) {
+    this.depForm.setValue({
+      id:departamento.id,
+      nombre: departamento.nombre 
+   })
   }
-
+  //DELETE DEPA
   deleteDep(id: number) {
     this.depService.deleteDepartamento(id).subscribe(
       data => {
@@ -107,21 +129,6 @@ export class DepartamentoListadoComponent implements OnInit {
     this.getAllDepas();
   }
 
-  //OPEN NEW DEPA
-  openNewDep() {
-    const dialogRef = this.dialog. open(DepartamentoNuevoComponent, 
-      {
-        width: '400px',
-        disableClose: true,
-      });
-      
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.route.navigate(['/maestro/organizacion/departamentos/list']);
-    });
-  }
-
-  
   
   //READ AREA
   private getAllAreas(){
@@ -130,7 +137,7 @@ export class DepartamentoListadoComponent implements OnInit {
         this.areas = data.content; 
         this.isFirst = data.first;
         this.isLast = data.last;
-        this.totalPages = new Array(data['totalPages']);
+        this.totalPagesArea = new Array(data['totalPages']);
         console.log(data);
       },
       err => {

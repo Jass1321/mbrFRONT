@@ -27,7 +27,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ProveedoresRoutingModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class ProveedoresModule { }
