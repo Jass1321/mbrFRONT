@@ -12,7 +12,11 @@ export class DepartamentoService {
 
   constructor(private httpClient: HttpClient) { } 
 
-  /* LIST */
+  /* LIST SIMPLE*/
+  public getDeps(): Observable<any>{
+    return this.httpClient.get(this.depURL + '/listSelectDep')
+  }
+  /* LIST WITH PAGE*/
   getListAllDepa(page: number, size: number, order: string, asc: boolean): Observable<any> {
     return this.httpClient.get<any>(`${this.depURL}/listDepa?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);
   }
@@ -27,10 +31,12 @@ export class DepartamentoService {
     return this.httpClient.post(`${this.depURL}/create`, departamento);
   }
 
-  /* UPDATE */
+  /* 
+  UPDATE 
   updateDepartamento(id: number, departamento: Departamento): Observable<Object> {
     return this.httpClient.put(`${this.depURL}/update/${id}`, departamento);
   }
+  */
   
   /* DELETE */
   deleteDepartamento(id: number): Observable<Object> {

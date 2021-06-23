@@ -1,13 +1,13 @@
 <div class="row align-items-md-stretch">
   <!-- START LIST DEPA-->
-  <div class="col-md-6 ">
+  <div class="col cardepa">
     <div class=" p-5 rounded-3  bg-white ">
       <!-- NEW DEPA-->
       <div class="container container-fluid">
         <form (ngSubmit)="createDep()" [formGroup]="depForm" >
           <div class="form-group" >
             <div class="input-group mb-3">
-              <input type="text"  class="name form-control"  formControlName="nombre">
+              <input type="text"  class="form-control"  formControlName="nombre">
               <button mat-button type="submit" color="primary" [disabled]="depForm.invalid">
                 <i class="fas fa-pencil-alt"></i>
               </button>
@@ -69,88 +69,6 @@
     </div>
   </div>
    <!-- END LIST DEPA-->
-
-  <!-- START LIST AREA-->
-  <div class="col-md-6">
-    <div class=" p-5 rounded-3  bg-white ">
-      <!-- SUBTITULO-->
-      <div class="normal-form">
-        <div>
-            <button mat-flat-button  color="primary" class="addprov " routerLink="add">
-              <mat-icon class="btn-add">add</mat-icon>Areas
-            </button> 
-        </div>
-        <div align="end">
-          <mat-form-field>
-            <input matInput  >
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-      
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item >
-              <mat-icon>get_app</mat-icon>
-              <span>Exportar</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>delete</mat-icon>
-              <span>Remove All</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div> 
-        <!-- DATA AREA-->
-      <div class="container">
-          <table class="table table-sm  table-hover">
-            <thead>
-              <tr>
-                <th scope="col" class="check" >
-                  <span class="custom-checkbox">
-                    <input type="checkbox" id="selectAll">
-                    <label for="selectAll"></label>
-                    </span>
-                </th>
-                <th scope="col"   class="nombre text-secondary" (click)="setOrderArea('nombre')">Areas  <i class="fas fa-sort" style="margin-left: 20px;" (click)="sortArea()"></i></th>
-                <th scope="col"> </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let area of areas">
-                <td>
-                  <span class="custom-checkbox">
-                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                    <label for="checkbox1"></label>
-                    </span> 
-                </td>
-                <td>{{area.nombre}}</td>
-                <td align="end" >
-                  <a (click)="updateArea(area.id)"><i class="signo fas fa-edit"></i></a>  
-                  <a (click)="deleteArea(area.id)"><i class="signo fas fa-trash"></i></a>  
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- PAGINATION AREA-->
-        <nav align="center" aria-label="...">
-          <ul class="pagination">
-            <li class="page-item" style="margin-right: 10px;">
-              <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindArea()"></i>
-            </li>
-            <li class="page-item"> 
-              <span *ngFor="let p of totalPagesArea; let i = index">
-                <a style="cursor: pointer;" (click)="setPageArea(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
-              </span>
-            </li>
-            <li class="page-item">
-              <i class="pag fas fa-angle-double-right fa-1x" (click)="forwardArea()"></i>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
+</div>
 <!-- {{departamentos | json}} -->
 <router-outlet></router-outlet>

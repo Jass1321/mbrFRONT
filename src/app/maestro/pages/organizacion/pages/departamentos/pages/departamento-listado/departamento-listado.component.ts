@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Departamento } from '../../../../models/departamento';
-import { AreaService } from '../../../../services/area.service';
+import { Router } from '@angular/router';
 import { DepartamentoService } from '../../../../services/departamento.service';
-import { DepartamentoEditadoComponent } from '../departamento-editado/departamento-editado.component';
-import { DepartamentoNuevoComponent } from '../departamento-nuevo/departamento-nuevo.component';
 
 @Component({
   selector: 'app-departamento-listado',
@@ -15,17 +10,11 @@ import { DepartamentoNuevoComponent } from '../departamento-nuevo/departamento-n
 })
 
 export class DepartamentoListadoComponent implements OnInit {
-
   
-  idDep!: number;
   depForm!: FormGroup;
-  alert: boolean = false;
-
   departamentos!: Array<any>;
-  areas!: Array<any>;
   totalPagesDep!: Array<number>;
-  totalPagesArea!: Array<number>;
-  
+
   //PAGINACION
   page = 0;
   size = 10;
@@ -37,9 +26,6 @@ export class DepartamentoListadoComponent implements OnInit {
 
   constructor(
     private depService: DepartamentoService,
-    private areaService: AreaService,
-    private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService,
     private route: Router,
     public fb: FormBuilder
   ) { }
@@ -51,7 +37,6 @@ export class DepartamentoListadoComponent implements OnInit {
     });;
 
     this.getAllDepas();
-    this.getAllAreas();
   }
 
   //CREATE DEPA
@@ -83,9 +68,6 @@ export class DepartamentoListadoComponent implements OnInit {
     );
   }
 
-  viewAreas(id: number) {
-    this.route.navigate(['/maestro/organizacion/departamentos/detail', id]);
-  }
   //UPDATE DEPA
   updateDep(departamento: {id:any, nombre: string}) {
     this.depForm.setValue({
@@ -93,6 +75,7 @@ export class DepartamentoListadoComponent implements OnInit {
       nombre: departamento.nombre 
    })
   }
+
   //DELETE DEPA
   deleteDep(id: number) {
     this.depService.deleteDepartamento(id).subscribe(
@@ -100,6 +83,7 @@ export class DepartamentoListadoComponent implements OnInit {
         this.getAllDepas()
       });
   }
+
   //SEARCH DEPA
   setOrderDep(order: string): void {
     this.order = order;
@@ -109,6 +93,7 @@ export class DepartamentoListadoComponent implements OnInit {
     this.asc = !this.asc;
     this.getAllDepas();
   }
+
   //PAGINACION
   rewindDep(): void {
     if (!this.isFirst) {
@@ -129,59 +114,9 @@ export class DepartamentoListadoComponent implements OnInit {
     this.getAllDepas();
   }
 
-  
-  //READ AREA
-  private getAllAreas(){
-    this.areaService.getListAllArea(this.page, this.size, this.order, this.asc).subscribe( 
-      data => {
-        this.areas = data.content; 
-        this.isFirst = data.first;
-        this.isLast = data.last;
-        this.totalPagesArea = new Array(data['totalPages']);
-        console.log(data);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  //----------- VIEW AREA BY ID DEP---------
+  viewAreas(id: number) {
+    this.route.navigate(['/maestro/organizacion/departamentos/detail', id]);
   }
-  
-  updateArea(idArea: number) {
-    this.route.navigate(['/maestro/organizacion/areas/edit', idArea]);
-  }
-
-  deleteArea(idArea: number) {
-    this.areaService.deleteArea(this.idDep, idArea).subscribe(data => {
-      this.getAllAreas()
-    });
-  }
-  
-  //SEARCH AREA
-  setOrderArea(order: string): void {
-    this.order = order;
-    this.getAllAreas();
-  }
-  sortArea(): void {
-    this.asc = !this.asc;
-    this.getAllAreas();
-  }
-  //PAGINACION
-  rewindArea(): void {
-    if (!this.isFirst) {
-      this.page--;
-      this.getAllAreas();
-    }
-  }
-  forwardArea(): void {
-    if (!this.isLast) {
-      this.page++;
-      this.getAllAreas();
-    }
-  }
-  setPageArea(page: number): void {
-    this.page = page;
-    this.getAllAreas();
-  }
-
 
 }

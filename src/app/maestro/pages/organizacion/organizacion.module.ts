@@ -6,6 +6,7 @@ import { OrganizacionComponent } from './components/organizacion.component';
 
 //Plus
 import { MaterialMaestroModule } from '../../plus/material.maestro.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { MaterialMaestroModule } from '../../plus/material.maestro.module';
   imports: [
     CommonModule,
     OrganizacionRoutingModule,
-    MaterialMaestroModule
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialMaestroModule,
   ]
 })
 export class OrganizacionModule { }

@@ -18,7 +18,6 @@ export class CuentaNuevoComponent implements OnInit {
     public fb: FormBuilder,
     public cuentaService: CuentaBancariaService,
     public bancoService: BancoService,
-    
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +29,7 @@ export class CuentaNuevoComponent implements OnInit {
       banco: ['', Validators.required]
     });;
 
-    this.bancoService.getAllBancos().subscribe(resp => {
+    this.bancoService.getBancos().subscribe(resp => {
       this.bancos = resp;
     },
       error => { console.error(error) }

@@ -1,107 +1,58 @@
 <!-- DETALLE DE DEPA SON SUS AREAS CORRESPONDIENTES  {{areas | json}}-->
-
 <div class="row align-items-md-stretch">
-  <div class="col-md-6">
-    <div class="p-5 rounded-3 bg-white">
-      <h3><i class="fas fa-plus"></i>Area </h3>
-      <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>Area agregada</strong>
-          <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <form (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" [(ngModel)]="area.nombre" name="nombre">
-          </div>
-          <button type="submit" class="btn btn-success">Submit</button>
-      </form>
-    </div>
-  </div> 
-
-  <div class="col-md-6 ">
+  <!-- START LIST AREA-->
+  <div class="col-md-6 cardepa ">
     <div class=" p-5 rounded-3  bg-white ">
-     
-      <div class="normal-form">
-        <div class="subtitulo">
-            <h2><i class="fas fa-list"></i>  Areas</h2>
-        </div>
-        <div align="end">
-          <mat-form-field>
-            <input matInput  >
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
+      <!-- NEW AREA-->
+      <div class="container container-fluid">
+        <form (ngSubmit)="createArea()" [formGroup]="areaForm">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input type="text" class="name form-control" formControlName="nombre">
+              <button mat-button type="submit" color="primary" [disabled]="areaForm.invalid">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
       
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item >
-              <mat-icon>get_app</mat-icon>
-              <span>Exportar</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>delete</mat-icon>
-              <span>Remove All</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div> 
-    <!-- <div class="grid-titulo">
-      <div><mat-icon class="titulo">list_alt</mat-icon></div>
-      <div><h2>Departamentos</h2> </div>
-    </div> -->
-    <div class="container">
-      <table class="table table-sm  table-hover">
-        <thead>
-          <tr>
-            <th scope="col" class="check" >
-              <span class="custom-checkbox">
-                <input type="checkbox" id="selectAll">
-                <label for="selectAll"></label>
-                </span>
-            </th>
-            <th>Areas</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let area of areas">
-            <td>
-              <span class="custom-checkbox">
-                <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                <label for="checkbox1"></label>
-                </span> 
-            </td>
-            <td class="nombre">{{area.nombre}}</td>
-            <td align="end" >
-              <a (click)="updateArea(area.id)"><i class="signo fas fa-edit"></i></a>  
-              <a (click)="deleteArea(area.id)"><i class="signo fas fa-trash"></i></a>  
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- LIST AREA-->
+      <div class="container">
+        <table class="table table-sm  table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="check" >
+                <span class="custom-checkbox">
+                  <input type="checkbox" id="selectAll">
+                  <label for="selectAll"></label>
+                  </span>
+              </th>
+              <th class="nombre text-secondary"  scope="col" >Areas </th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let area of areas">
+              <td>
+                <span class="custom-checkbox">
+                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                  <label for="checkbox1"></label>
+                  </span> 
+              </td>
+              <td>{{area.nombre}}</td>
+              <td align="end" >
+                <a  (click)="updateArea(area)"><i class="signo fas fa-edit"></i></a>  
+                <a (click)="deleteArea(area.id)"><i class="signo fas fa-trash"></i></a>  
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
     </div>
-    
-    <nav align="center" aria-label="...">
-      <ul class="pagination">
-        <li class="page-item" style="margin-right: 10px;">
-          <i class="pag fas fa-angle-double-left fa-1x" (click)="rewind()"></i>
-        </li>
-        <li class="page-item"> 
-          <span *ngFor="let p of totalPages; let i = index">
-            <a style="cursor: pointer;" (click)="setPage(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
-          </span>
-        </li>
-        <li class="page-item">
-          <i class="pag fas fa-angle-double-right fa-1x" (click)="forward()"></i>
-        </li>
-      </ul>
-    </nav>
-   
   </div>
-</div>
-</div>
+   <!-- END LIST AREA-->
 <!-- {{departamentos | json}} -->
 <router-outlet></router-outlet>
+

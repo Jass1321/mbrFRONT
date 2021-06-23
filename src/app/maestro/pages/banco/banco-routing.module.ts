@@ -8,9 +8,13 @@ const routes: Routes = [
     path: '',component: BancoComponent,
     children: [
       {
+        path: 'bancos',
+        loadChildren: () => import('./pages/bancos/bancos.module').then( m => m.BancosModule)
+      },
+      {
         path: 'cuentas',
         loadChildren: () => import('./pages/cuentas/cuentas.module').then( m => m.CuentasModule)
-      }
+      } 
     ]
   }
 ];

@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Banco } from '../models/banco';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BancoService {
 
-  bancoURL = "http://localhost:1321/banco/";
+  bancoURL = "http://localhost:1321/bancos";
 
   constructor(private httpClient: HttpClient) { } 
 
-  public getAllBancos(): Observable<any>{
-    return this.httpClient.get(this.bancoURL + 'list')
+  /* LIST SIMPLE*/
+  public getBancos(): Observable<any>{
+    return this.httpClient.get(this.bancoURL + '/list')
+  }
+
+  /* LIST WITH PAGE*/
+  getListAllDepa(page: number, size: number, order: string, asc: boolean): Observable<any> {
+    return this.httpClient.get<any>(`${this.bancoURL}/listBanco?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);
+  }
+  
+  /* CREATE */
+  createBanco(banco: Banco): Observable<any> {
+    return this.httpClient.post(`${this.bancoURL}/create`, banco);
+  }
+
+  /* DELETE */
+  deleteDepartamento(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.bancoURL}/delete/${id}`);
   }
 }

@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AreaComponent } from './components/area.component';
 
-import { AreasComponent } from './components/areas.component';
-
-import { AreaDetalleComponent } from './pages/area-detalle/area-detalle.component';
-import { AreaEditadoComponent } from './pages/area-editado/area-editado.component';
 import { AreaListadoComponent } from './pages/area-listado/area-listado.component';
 
 const routes: Routes = [
   {
-    path: '',component: AreasComponent,
+    path: '',component: AreaComponent ,
     children: [
-      {path: 'list', component: AreaListadoComponent},
-      {path: 'detail/:id', component: AreaDetalleComponent},
-      {path: 'edit/:id', component: AreaEditadoComponent},
+      {path: 'list', component: AreaListadoComponent}
     ]
   },
 ];

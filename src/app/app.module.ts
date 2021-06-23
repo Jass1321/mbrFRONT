@@ -16,7 +16,6 @@ import { Error500Component } from './layouts/page/error500/error500.component';
 import { MateriaLayoutslModule } from './layouts/extra/material/material.layouts.module';
 import { ToastrModule } from 'ngx-toastr';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MateriaLayoutslModule,
+    MateriaLayoutslModule
   ],
   providers: [],
   bootstrap: [AppComponent],

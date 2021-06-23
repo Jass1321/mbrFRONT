@@ -1,4 +1,5 @@
-export class Area {
+export class Banco {
     id!: number;
     nombre!: string;
 } 
+

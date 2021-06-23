@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AreaService } from '../../../../services/area.service';
 import { DepartamentoService } from '../../../../services/departamento.service';
-import { Area } from '../../../../models/area';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-departamento-detalle',
@@ -12,105 +12,72 @@ import { Area } from '../../../../models/area';
 export class DepartamentoDetalleComponent implements OnInit {
 
   idDep!: number;
-  alert:boolean = false;
-  area: Area = new Area();
+  areaForm!: FormGroup;
   
   departamentos!: Array<any>;
   areas!: Array<any>;
-  
-  //PAGINACION
-  totalPages!: Array<number>;
-  page = 0;
-  size = 10;
-  order = 'id';
-  asc = true;
-
-  isFirst = false;
-  isLast = false;
 
   constructor(
     private areaService: AreaService,
     private routeActive: ActivatedRoute,
-    private route: Router,
+    public fb: FormBuilder,
     private depService: DepartamentoService,
   ) { }
 
   ngOnInit(): void {
     this.idDep = this.routeActive.snapshot.params['id'];
+    
+    this.areaForm = this.fb.group({
+      id : [''],
+      nombre: ['', Validators.required]
+    });;
+
     this.depService.getDepById(this.idDep).subscribe(
       dataDep => {
         this.departamentos = dataDep;
-        this.totalPages = new Array(dataDep['totalPages']);
-        
       });
-    this.getAllAreas();
+
+    this.getAreasByIdDep();
   }
 
-  
-  private getAllAreas(){
+  //CREATE AREA BY ID DEP
+  createArea() {
+    this.areaService.createArea(this.idDep, this.areaForm.value).subscribe(
+      data => {
+        this.areaForm.reset();
+        this.getAreasByIdDep();
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });  
+  }
+  //READ AREA BY ID DEP
+  private getAreasByIdDep(){
     this.areaService.getAreasById(this.idDep).subscribe(
       data => {
         this.areas = data;
-        this.isFirst = data.first;
-        this.isLast = data.last;
-        this.totalPages = new Array(data['totalPages']);
         console.log(data);
       },
       err => {
         console.log(err);
       });
   }
-
-  onSubmit() {
-    this.areaService.createArea(this.idDep, this.area).subscribe(
-      data => {
-        this.alert = true;
-        this.getAllAreas();
-      },
-      error => console.log(error));
+  //UPDATE AREA BY ID DEP
+  updateArea(area: {id:any, nombre: string}) {
+    this.areaForm.setValue({
+      id:area.id,
+      nombre: area.nombre 
+   })
   }
-
-  updateArea(idArea: number) {
-    this.route.navigate(['/maestro/organizacion/areas/edit', idArea]);
-  }
-
+  //DELETE AREA BY ID DEP
   deleteArea(idArea: number) {
     this.areaService.deleteArea(this.idDep, idArea).subscribe(data => {
-      this.getAllAreas()
+      this.getAreasByIdDep()
     });
   }
 
-  closeAlert(){
-    this.alert = false;
-  }
 
-  //PAGINACION
-  sort(): void {
-    this.asc = !this.asc;
-    this.getAllAreas();
-  }
-
-  rewind(): void {
-    if (!this.isFirst) {
-      this.page--;
-      this.getAllAreas();
-    }
-  }
-
-  forward(): void {
-    if (!this.isLast) {
-      this.page++;
-      this.getAllAreas();
-    }
-  }
-
-  setPage(page: number): void {
-    this.page = page;
-    this.getAllAreas();
-  }
   
-  setOrder(order: string): void {
-    this.order = order;
-    this.getAllAreas();
-  }
+
 }

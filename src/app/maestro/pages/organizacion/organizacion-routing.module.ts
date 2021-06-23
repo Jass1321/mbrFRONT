@@ -5,15 +5,15 @@ import { OrganizacionComponent } from './components/organizacion.component';
 
 const routes: Routes = [
   { 
-    path: '',component: OrganizacionComponent, data: { breadcrumb: 'Organización'},
+    path: '',component: OrganizacionComponent,
     children: [
-      {
-        path: 'departamentos',
-        loadChildren: () => import('./pages/departamentos/departamentos.module').then( m => m.DepartamentosModule)
-      },
       {
         path: 'areas',
         loadChildren: () => import('./pages/areas/areas.module').then( m => m.AreasModule)
+      },
+      {
+        path: 'departamentos',
+        loadChildren: () => import('./pages/departamentos/departamentos.module').then( m => m.DepartamentosModule)
       }
     ]
   },
