@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DepartamentoService } from '../../../../services/departamento.service';
+import { DepartamentoService } from '../../services/departamento.service';
 
 @Component({
-  selector: 'app-departamento-listado',
-  templateUrl: './departamento-listado.component.html',
-  styleUrls: ['./departamento-listado.component.css']
+  selector: 'app-departamentos-detail',
+  templateUrl: './departamentos-detail.component.html',
+  styleUrls: ['./departamentos-detail.component.css']
 })
+export class DepartamentosDetailComponent implements OnInit {
 
-export class DepartamentoListadoComponent implements OnInit {
-  
   depForm!: FormGroup;
   departamentos!: Array<any>;
+  totalPagesArea!: Array<number>;
   totalPagesDep!: Array<number>;
 
   //PAGINACION
@@ -25,9 +25,9 @@ export class DepartamentoListadoComponent implements OnInit {
   isLast = false;
 
   constructor(
-    private depService: DepartamentoService,
+    public fb: FormBuilder,
     private route: Router,
-    public fb: FormBuilder
+    private depService: DepartamentoService,
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +39,7 @@ export class DepartamentoListadoComponent implements OnInit {
     this.getAllDepas();
   }
 
+  //------------ DEPARTAMENTO C-R-U-D ------------
   //CREATE DEPA
   createDep(): void {
     this.depService.createDepartamento(this.depForm.value).subscribe(
@@ -51,9 +52,8 @@ export class DepartamentoListadoComponent implements OnInit {
       }
     )
   }
-
   //READ DEPA
-  private getAllDepas(){
+  public getAllDepas(){
     this.depService.getListAllDepa(this.page, this.size, this.order, this.asc).subscribe( 
       data => {
         this.departamentos = data.content; 
@@ -67,7 +67,6 @@ export class DepartamentoListadoComponent implements OnInit {
       }
     );
   }
-
   //UPDATE DEPA
   updateDep(departamento: {id:any, nombre: string}) {
     this.depForm.setValue({
@@ -75,7 +74,6 @@ export class DepartamentoListadoComponent implements OnInit {
       nombre: departamento.nombre 
    })
   }
-
   //DELETE DEPA
   deleteDep(id: number) {
     this.depService.deleteDepartamento(id).subscribe(
@@ -83,7 +81,6 @@ export class DepartamentoListadoComponent implements OnInit {
         this.getAllDepas()
       });
   }
-
   //SEARCH DEPA
   setOrderDep(order: string): void {
     this.order = order;
@@ -93,7 +90,6 @@ export class DepartamentoListadoComponent implements OnInit {
     this.asc = !this.asc;
     this.getAllDepas();
   }
-
   //PAGINACION
   rewindDep(): void {
     if (!this.isFirst) {
@@ -101,22 +97,19 @@ export class DepartamentoListadoComponent implements OnInit {
       this.getAllDepas();
     }
   }
-
   forwardDep(): void {
     if (!this.isLast) {
       this.page++;
       this.getAllDepas();
     }
   }
-
   setPageDep(page: number): void {
     this.page = page;
     this.getAllDepas();
   }
 
-  //----------- VIEW AREA BY ID DEP---------
-  viewAreas(id: number) {
-    this.route.navigate(['/maestro/organizacion/departamentos/detail', id]);
+  //------------ VIEW AREA BY ID DEP ------------
+  backList() {
+    this.route.navigate(['/maestro/organizacion/list']);
   }
-
 }

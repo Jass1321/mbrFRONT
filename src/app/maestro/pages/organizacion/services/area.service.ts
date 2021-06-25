@@ -45,12 +45,13 @@ export class AreaService {
   }
 
   
-  /* 
-  UPDATE 
+  
+  /* UPDATE
   updateArea(idDep: number, idArea: number, area: Area): Observable<Object> {
     return this.httpClient.put(`${this.areaURL}/update/${idDep}/areas/${idArea}`, area);
   }
-  */
+   */
+  
 
   /* DELETE */
   deleteArea(idDep: number,idArea: number): Observable<Object> {

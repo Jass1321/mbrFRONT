@@ -1,31 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AreaService } from '../../../../services/area.service';
-import { DepartamentoService } from '../../../../services/departamento.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AreaService } from '../../services/area.service';
+import { DepartamentoService } from '../../services/departamento.service';
 
 @Component({
-  selector: 'app-departamento-detalle',
-  templateUrl: './departamento-detalle.component.html',
-  styleUrls: ['./departamento-detalle.component.css']
+  selector: 'app-areas-list',
+  templateUrl: './areas-list.component.html',
+  styleUrls: ['./areas-list.component.css']
 })
-export class DepartamentoDetalleComponent implements OnInit {
+export class AreasListComponent implements OnInit {
 
-  idDep!: number;
+  
+  idDep = 0;
   areaForm!: FormGroup;
   
   departamentos!: Array<any>;
   areas!: Array<any>;
 
   constructor(
-    private areaService: AreaService,
-    private routeActive: ActivatedRoute,
     public fb: FormBuilder,
+    private routeActive: ActivatedRoute,
+    private areaService: AreaService,
     private depService: DepartamentoService,
   ) { }
 
   ngOnInit(): void {
-    this.idDep = this.routeActive.snapshot.params['id'];
+    this.idDep = +this.routeActive.snapshot.params['id'];
     
     this.areaForm = this.fb.group({
       id : [''],
@@ -40,6 +41,7 @@ export class DepartamentoDetalleComponent implements OnInit {
     this.getAreasByIdDep();
   }
 
+  //------------ AREA C-R-U-D ------------
   //CREATE AREA BY ID DEP
   createArea() {
     this.areaService.createArea(this.idDep, this.areaForm.value).subscribe(
@@ -76,8 +78,4 @@ export class DepartamentoDetalleComponent implements OnInit {
       this.getAreasByIdDep()
     });
   }
-
-
-  
-
 }

@@ -20,7 +20,7 @@ input{
     margin-right: 5%;
     color: grey;
 }
-.nombre{
+.title{
     padding-left: 30px;
     font-weight: 500;
 }
@@ -46,9 +46,9 @@ table.table tr th, table.table tr td {
 
 
 @media only screen and (max-width:1000px){
+
     .cardepa{
         margin-left:unset;
         margin-right: unset;
     }  
-    
-}
+} 

@@ -5,7 +5,7 @@ import { RrhhComponent } from './components/rrhh/rrhh.component';
 
 const routes: Routes = [
   {
-    path: '',component: RrhhComponent,
+    path: '/:id',component: RrhhComponent,
     children: [
       /* {
         path: 'tercero',

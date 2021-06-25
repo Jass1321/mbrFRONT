@@ -3,21 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { OrganizacionComponent } from './components/organizacion.component';
 
+import { AreasListComponent } from './pages/areas-list/areas-list.component';
+import { DepartamentosListComponent } from './pages/departamentos-list/departamentos-list.component';
+import { DepartamentosDetailComponent } from './pages/departamentos-detail/departamentos-detail.component';
+
 const routes: Routes = [
   { 
     path: '',component: OrganizacionComponent,
     children: [
-      {
-        path: 'areas',
-        loadChildren: () => import('./pages/areas/areas.module').then( m => m.AreasModule)
+      {path: 'list', component: DepartamentosListComponent},
+      {path: 'detail', component: DepartamentosDetailComponent, 
+        children: [
+          {path: 'departamento/:id', component: AreasListComponent},
+        ]
       },
-      {
-        path: 'departamentos',
-        loadChildren: () => import('./pages/departamentos/departamentos.module').then( m => m.DepartamentosModule)
-      }
-    ]
-  },
+    ] 
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

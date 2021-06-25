@@ -1,0 +1,144 @@
+<div class="row align-items-md-stretch">
+    <!-- START LIST DEPA-->
+    <div class="col col-md-12 col-lg-6">
+      <div class="p-5 rounded-3  bg-white shadow-sm">
+        <!-- NEW DEPA-->
+        <div class="container container-fluid">
+          <form (ngSubmit)="createDep()" [formGroup]="depForm" >
+            <div class="form-group" >
+              <div class="input-group mb-3">
+                <input type="text"  class="form-control"  formControlName="nombre">
+                <button mat-button type="submit" color="primary" [disabled]="depForm.invalid">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- LIST DEPA-->
+        <div class="container">
+          <table class="table table-sm  table-hover">
+            <thead>
+              <tr>
+                <th scope="col" class="check" >
+                  <span class="custom-checkbox">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll"></label>
+                    </span>
+                </th>
+                <th class="title text-secondary"  scope="col" (click)="setOrderDep('nombre')">Departamentos<i class="fas fa-sort" style="margin-left: 20px;" (click)="sortDep()"></i></th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dep of departamentos">
+                <td>
+                  <span class="custom-checkbox">
+                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                    <label for="checkbox1"></label>
+                    </span> 
+                </td>
+                <td>{{dep.nombre}}</td>
+                <td align="end">
+                  <!-- (click)="viewAreas(dep.id)" -->
+                  <a (click)="viewAreas(dep.id)"><i class="signo fa fa-eye"></i></a>  
+                  <a (click)="updateDep(dep)"   ><i class="signo fas fa-edit"></i></a>  
+                  <a (click)="deleteDep(dep.id)"><i class="signo fas fa-trash"></i></a>  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- PAGINATION DEPA-->
+        <nav align="center" aria-label="...">
+          <ul class="pagination">
+            <li class="page-item" style="margin-right: 10px;">
+              <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindDep()"></i>
+            </li>
+            <li class="page-item"> 
+              <span *ngFor="let p of totalPagesDep; let i = index">
+                <a style="cursor: pointer;" (click)="setPageDep(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+              </span>
+            </li>
+            <li class="page-item">
+              <i class="pag fas fa-angle-double-right fa-1x" (click)="forwardDep()"></i>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- END LIST DEPA-->
+    
+    <!-- START LIST AREA-->
+    <div class="col col-md-12 col-lg-6">
+        <div class="p-5 rounded-3  bg-white shadow-sm ">
+            <!-- NEW AREA-->
+            <div class="container container-fluid">
+                <form (ngSubmit)="createArea()" [formGroup]="areaForm">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                    <input type="text" class="name form-control" formControlName="nombre">
+                    <button mat-button type="submit" color="primary" [disabled]="areaForm.invalid">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <!-- LIST AREA-->
+            <div class="container">
+                <table class="table table-sm  table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col" class="check" >
+                        <span class="custom-checkbox">
+                        <input type="checkbox" id="selectAll">
+                        <label for="selectAll"></label>
+                        </span>
+                    </th>
+                    <th class="title text-secondary"  scope="col"  (click)="setOrderArea('nombre')">Areas <i class="fas fa-sort" style="margin-left: 20px;" (click)="sortArea()"></i></th>
+                    <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let area of areas" >
+                    <td>
+                        <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                        </span> 
+                    </td>
+                    <td>{{area.nombre}}</td>
+                    <td align="end" >
+                        <a  (click)="updateArea(area)"><i class="signo fas fa-edit"></i></a>  
+                        <a (click)="deleteArea(area.id)"><i class="signo fas fa-trash"></i></a>  
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <!-- PAGINATION AREA-->
+            <nav align="center" aria-label="...">
+              <ul class="pagination">
+                <li class="page-item" style="margin-right: 10px;">
+                <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindArea()"></i>
+                </li>
+                <li class="page-item"> 
+                <span *ngFor="let p of totalPagesArea; let i = index">
+                    <a style="cursor: pointer;" (click)="setPageArea(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+                </span>
+                </li>
+                <li class="page-item">
+                <i class="pag fas fa-angle-double-right fa-1x" (click)="forwardArea()"></i>
+                </li>
+              </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LIST AREA-->
+</div>
+  
+<router-outlet></router-outlet>
+  
+<!-- {{departamentos | json}} -->
+  
