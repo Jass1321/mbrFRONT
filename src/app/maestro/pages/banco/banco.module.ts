@@ -8,11 +8,18 @@ import { BancoComponent } from './components/banco.component';
 import { MaterialMaestroModule } from '../../plus/material.maestro.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { BancosListComponent } from './pages/bancos-list/bancos-list.component';
+import { BancosDetailComponent } from './pages/bancos-detail/bancos-detail.component';
+import { CuentaBancariasListComponent } from './pages/cuenta-bancarias-list/cuenta-bancarias-list.component';
+
 
 
 @NgModule({
   declarations: [
     BancoComponent,
+    BancosListComponent,
+    BancosDetailComponent,
+    CuentaBancariasListComponent,
   ],
   imports: [
     CommonModule,

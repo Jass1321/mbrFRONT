@@ -14,12 +14,17 @@ export class BancoService {
 
   /* LIST SIMPLE*/
   public getBancos(): Observable<any>{
-    return this.httpClient.get(this.bancoURL + '/list')
+    return this.httpClient.get(this.bancoURL + '/listSelectBanco')
   }
 
   /* LIST WITH PAGE*/
-  getListAllDepa(page: number, size: number, order: string, asc: boolean): Observable<any> {
+  getListAllBanco(page: number, size: number, order: string, asc: boolean): Observable<any> {
     return this.httpClient.get<any>(`${this.bancoURL}/listBanco?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);
+  }
+
+  /* DETAIL */
+  getBancoById(id:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.bancoURL}/listBanco/${id}`);
   }
   
   /* CREATE */
@@ -28,7 +33,7 @@ export class BancoService {
   }
 
   /* DELETE */
-  deleteDepartamento(id: number): Observable<Object> {
+  deleteBanco(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.bancoURL}/delete/${id}`);
   }
 }

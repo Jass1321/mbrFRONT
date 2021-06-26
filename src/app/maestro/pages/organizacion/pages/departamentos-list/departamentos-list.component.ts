@@ -134,7 +134,7 @@ export class DepartamentosListComponent implements OnInit {
   }
 
   //------------AREA R-U-D------------
-  //CREATE AREA BY ID DEP
+  //SAVE AREA 
   createArea(): void{
     this.areaService.saveArea(this.areaForm.value).subscribe(
       data => {
@@ -204,7 +204,4 @@ export class DepartamentosListComponent implements OnInit {
     this.page = page;
     this.getAllAreas();
   }
-
-
-
 }

@@ -1,0 +1,79 @@
+<div class="row align-items-md-stretch">
+    <!-- START LIST BANCO-->
+    <div class="col col-md-12 col-lg-6">
+      <div class="p-5 rounded-3  bg-white shadow-sm">
+        <!-- NEW DEPA-->
+        <div class="container container-fluid">
+          <form (ngSubmit)="createBanco()" [formGroup]="bancoForm" >
+            <div class="form-group" >
+              <div class="input-group mb-3">
+                <input type="text" class="name form-control" formControlName="nombre">
+                <button mat-button type="submit" color="primary" [disabled]="bancoForm.invalid">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- LIST BANCO-->
+        <div class="container">
+          <table class="table table-sm  table-hover">
+            <thead>
+              <tr>
+                <th scope="col" class="check" >
+                  <span class="custom-checkbox">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll"></label>
+                    </span>
+                </th>
+                <th class="title text-secondary"  scope="col" (click)="setOrderBanco('nombre')">Bancos<i class="fas fa-sort" style="margin-left: 20px;" (click)="sortBanco()"></i></th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of bancos">
+                <td>
+                  <span class="custom-checkbox">
+                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                    <label for="checkbox1"></label>
+                    </span> 
+                </td>
+                <td>{{item.nombre}}</td>
+                <td align="end">
+                  <!-- (click)="viewAreas(dep.id)" -->
+                  <a (click)="backList()"><i class="signo fa fa-eye"></i></a>  
+                  <a (click)="updateBanco(item)"   ><i class="signo fas fa-edit"></i></a>  
+                  <a (click)="deleteBanco(item.id)"><i class="signo fas fa-trash"></i></a>  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- PAGINATION BANCO-->
+        <nav align="center" aria-label="...">
+          <ul class="pagination">
+            <li class="page-item" style="margin-right: 10px;">
+              <i class="pag fas fa-angle-double-left fa-1x" (click)="rewindBanco()"></i>
+            </li>
+            <li class="page-item"> 
+              <span *ngFor="let p of totalPagesBanco; let i = index">
+                <a style="cursor: pointer;" (click)="setPageBanco(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+              </span>
+            </li>
+            <li class="page-item">
+              <i class="pag fas fa-angle-double-right fa-1x" (click)="forwardBanco()"></i>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- END LIST BANCO-->
+
+    <!-- START LIST CUENTA BY ID BANCO-->
+    <div class="col col-md-12 col-lg-6">
+        <div class="p-5 rounded-3  bg-white shadow-sm ">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+

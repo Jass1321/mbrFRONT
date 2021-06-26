@@ -74,8 +74,9 @@ export class AreasListComponent implements OnInit {
   }
   //DELETE AREA BY ID DEP
   deleteArea(idArea: number) {
-    this.areaService.deleteArea(this.idDep, idArea).subscribe(data => {
-      this.getAreasByIdDep()
-    });
+    this.areaService.deleteArea(this.idDep, idArea).subscribe(
+      data => {
+        this.getAreasByIdDep()
+      });
   }
 }

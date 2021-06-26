@@ -1,0 +1,59 @@
+<!-- START AREA BY ID DEP {{areas | json}}-->
+    <!-- NEW AREA-->
+    <div class="container container-fluid">
+        <form (ngSubmit)="createCuenta()" [formGroup]="cuentaForm">
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="number"  class="form-control"  formControlName="num"  placeholder="N° Cuenta">
+                    <input type="number"  class="form-control"  formControlName="cci"  placeholder="CCI">
+                    <input type="text"  class="form-control"  formControlName="moneda" placeholder="Moneda">
+                    <button mat-button type="submit" color="primary" [disabled]="cuentaForm.invalid">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                </div>
+            </div>
+          </form>
+    </div> 
+    
+    <!-- LIST AREA-->
+    <div class="container">
+      <table class="table table-sm  table-hover">
+        <thead>
+        <tr>
+            <th scope="col" class="check" >
+            <span class="custom-checkbox">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll"></label>
+                </span>
+            </th>
+            <th class="title text-secondary"  scope="col" >N° Cuenta Bancaria</th>
+            <th class="title text-secondary"  scope="col" >CCI</th>
+            <th class="title text-secondary"  scope="col" >Moneda</th>
+            <th scope="col"> </th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cuentas" >
+            <td>
+                <span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                <label for="checkbox1"></label>
+                </span> 
+            </td>
+            <td>{{item.num}}</td>
+            <td>{{item.cci}}</td>
+            <td>{{item.moneda}}</td>
+            <td align="end" >
+                <a  (click)="updateCuenta(item)"><i class="signo fas fa-edit"></i></a>  
+                <a (click)="deleteCuenta(item.id)"><i class="signo fas fa-trash"></i></a>  
+            </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="detail text-secondary" align="end">
+        <h5>Banco - {{idBanco}}</h5>
+    </div> 
+
+<!-- END AREA BY ID DEP-->

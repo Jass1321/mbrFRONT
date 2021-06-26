@@ -12,7 +12,6 @@ export class DepartamentosDetailComponent implements OnInit {
 
   depForm!: FormGroup;
   departamentos!: Array<any>;
-  totalPagesArea!: Array<number>;
   totalPagesDep!: Array<number>;
 
   //PAGINACION
@@ -108,7 +107,7 @@ export class DepartamentosDetailComponent implements OnInit {
     this.getAllDepas();
   }
 
-  //------------ VIEW AREA BY ID DEP ------------
+  //------------ BACk TO LIST DEPA AND AREA ------------
   backList() {
     this.route.navigate(['/maestro/organizacion/list']);
   }
