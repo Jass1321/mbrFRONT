@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { MatDialog } from '@angular/material/dialog';
 import { ProveedorService } from 'src/app/maestro/pages/tercero/services/proveedor.service';
+import { ProveedorNuevoComponent } from '../proveedor-nuevo/proveedor-nuevo.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-proveedor-listado',
@@ -11,10 +13,11 @@ import { ProveedorService } from 'src/app/maestro/pages/tercero/services/proveed
 })
 export class ProveedorListadoComponent implements OnInit {
 
- 
+  idProv!: number;
   proveedores!: Array<any>;
 
   totalPages!: Array<number>;
+  //PAGINACION
   page = 0;
   size = 10;
   order = 'id';
@@ -24,17 +27,22 @@ export class ProveedorListadoComponent implements OnInit {
   isLast = false;
 
   constructor(
-    private proveedorService: ProveedorService,
-    private toastr: ToastrService,
-    private router: Router
+    private route: Router,
+    private proveedorService: ProveedorService
     ){ }
 
   ngOnInit() {
-    this.cargarProveedores();
+   this.getAllProveedores();
   }
 
-  cargarProveedores(): void{
-    this.proveedorService.lista(this.page, this.size, this.order, this.asc).subscribe(
+  //------------ PROVEEDOR C-R-U-D ------------
+  //CREATE PROV
+  openNewProv() {
+    this.route.navigate(['/maestro/tercero/proveedores/add']);
+  }
+  //READ PROV
+  private getAllProveedores(): void{
+    this.proveedorService.getListAllProveedor(this.page, this.size, this.order, this.asc).subscribe(
       data => {
         this.proveedores = data.content;
         this.isFirst = data.first;
@@ -48,54 +56,53 @@ export class ProveedorListadoComponent implements OnInit {
     );
   }
 
-  borrar(id: any){
-    // alert('borrar el ' + id);  Para probar si funciona
-    this.proveedorService.delete(id).subscribe(
-      data => {
-        this.toastr.success('Producto Eliminado', 'OK', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center'
-        });
-        this.cargarProveedores();
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  
-          positionClass: 'toast-top-center',
-        });
-      }
-    ); 
-  }
-
   //PAGINACION
   sort(): void {
     this.asc = !this.asc;
-    this.cargarProveedores();
+    this.getAllProveedores();
   }
 
   rewind(): void {
     if (!this.isFirst) {
       this.page--;
-      this.cargarProveedores();
+      this.getAllProveedores();
     }
   }
 
   forward(): void {
     if (!this.isLast) {
       this.page++;
-      this.cargarProveedores();
+      this.getAllProveedores();
     }
   }
 
   setPage(page: number): void {
     this.page = page;
-    this.cargarProveedores();
+    this.getAllProveedores();
   }
   
   setOrder(order: string): void {
     this.order = order;
-    this.cargarProveedores();
+    this.getAllProveedores();
   }
 
- 
+  //DETAIL PROV
+  openDetailProv(id: number) {
+    this.route.navigate(['/maestro/tercero/proveedores/detail',id]);
+  }
+
+  //UPDATE PROV
+  openUpdateProv(id: number) {
+    this.route.navigate(['/maestro/tercero/proveedores/edit',id]);
+  }
+
+  //DELETE PROV
+  deleteProv(id: number) {
+    this.proveedorService.deleteProveedor(id).subscribe(
+      data => {
+        this.getAllProveedores()
+      });
+  }
 }
+
+

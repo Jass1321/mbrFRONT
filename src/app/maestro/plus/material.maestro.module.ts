@@ -9,11 +9,15 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatMenuModule} from '@angular/material/menu';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 @NgModule({
     imports: [
         MatTabsModule,
@@ -26,7 +30,9 @@ import {MatMenuModule} from '@angular/material/menu';
         MatInputModule,
         MatFormFieldModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSelectModule,
+        MatDatepickerModule
     ],
     exports: [
         MatTabsModule,
@@ -39,7 +45,9 @@ import {MatMenuModule} from '@angular/material/menu';
         MatInputModule,
         MatFormFieldModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSelectModule,
+        MatDatepickerModule
     ]
 })
 export class MaterialMaestroModule {}

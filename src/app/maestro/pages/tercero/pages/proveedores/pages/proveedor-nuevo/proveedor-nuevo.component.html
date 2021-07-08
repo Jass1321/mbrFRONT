@@ -1,40 +1,262 @@
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-md-4 mx-auto">
-            <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
-                <div class="form-group">
-                    <label for="codigo">Codigo</label>
-                    <input type="text" class="form-control" id="codigo" name="codigo"
-                    [(ngModel)]="codigo" required>
-                </div>
-                <div class="form-group">
-                    <label for="ruc">RUC</label>
-                    <input type="number" class="form-control" id="ruc" name="ruc"
-                    [(ngModel)]="ruc" required>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Razon Social</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre"
-                    [(ngModel)]="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="fechaInicio">Fecha de Inicio</label>
-                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"
-                    [(ngModel)]="fechaInicio" required>
-                </div>
-                <div class="form-group">
-                    <label for="rubro">Rubro de Actividad</label>
-                    <input type="text" class="form-control" id="rubro" name="rubro"
-                    [(ngModel)]="rubro" required>
-                </div>
-                <div class="form-group">
-                    <label for="comentario">comentario</label>
-                    <input type="text" class="form-control" id="comentario" name="comentario"
-                    [(ngModel)]="comentario" required>
-                </div>
-                <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">Crear</button>
-            </form>
+<div class="container rounded-3 bg-white border-0">
+  <div class="card-body">
+    <form (ngSubmit)="onCreate()">  <!-- [formGroup]="proveedorForm"  -->
+      <!-- -----------------------  SUBTITLE------------------- -->      
+      <div class="card-header bg-transparent" style="height: 40px;">
+        <h4 class="header-title text-secondary titulo ">  REGISTRO - PROV0001 </h4>
+      </div>
+      <!-- -----------------------FORM BASIC TERCERO------------------- -->
+      <div class="row g-4" >
+        <div class="col-md">
+          <div class="campo-container">
+              <!-- RUC -->
+              <mat-form-field appearance="outline">
+              <mat-label> RUC </mat-label>
+              <input matInput type="number" id="ruc" name="ruc"  [(ngModel)]="proveedor.ruc">
+            </mat-form-field>
+          </div>
         </div>
-    </div>
-</div>
+        <div class="col-md">
+          <div class="campo-container">
+            <!-- RAZON SOCIAL -->
+            <mat-form-field appearance="outline">
+              <mat-label> Razón Social </mat-label>
+              <input matInput type="text" id="razonSocial" name="razonSocial" [(ngModel)]="proveedor.razonSocial">
+            </mat-form-field>
+          </div> 
+        </div>
+        <div class="col-md">
+          <div class="campo-container">
+            <!-- RUBRO DE ACTIVIDAD -->
+            <mat-form-field appearance="outline">
+              <mat-label> Rubro de Actividad </mat-label>
+              <input matInput type="text" id="rubroActividad" name="rubroActividad" [(ngModel)]="proveedor.rubroActividad">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="campo-container bo">
+            <!-- FECHA DE INICIO -->
+            <mat-form-field appearance="outline">
+              <mat-label> Fecha de Inicio </mat-label>
+              <input matInput type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="proveedor.fechaInicio">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <!-- -----------------------UBICACION------------------- -->
+      <div class="grid-linea">
+        <div>
+          <hr class="linea1"  width="1px" noshade="noshade">
+        </div>
+        <div class="icon">
+          <mat-icon>location_on</mat-icon> 
+        </div>
+        <div>
+          <hr class="linea2"  width="1px" noshade="noshade">
+        </div>
+      </div>
+      <tr *ngFor="let item of direccion; let in=index">
+        
+      <div class="grid-dir">
+        <div class="campo-container ri-dir">
+          <!-- PAIS -->
+          <mat-form-field  appearance="outline">
+            <mat-label> Pais</mat-label>
+            <mat-select name="pais"  id="pais" [(ngModel)]="item.pais">
+              <mat-option required value="Peru">Peru</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="campo-container le-dir">
+          <!-- DIRECCION-->
+          <mat-form-field appearance="outline">
+            <mat-label> Dirección </mat-label>
+            <input matInput id="domicilio" name="domicilio"  [(ngModel)]="item.domicilio" >
+          </mat-form-field>
+        </div>
+      </div>
+          
+      <div class="row">
+        <div class="col">
+          <div class="dir-container">
+            <!-- DEPARTAMENTO -->
+            <mat-form-field appearance="outline">
+              <mat-label> Departamento</mat-label>
+              <mat-select name="departamento"  id="departamento" [(ngModel)]="item.departamento">
+                  <mat-option required value="DeP">Departamento</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col">    
+          <div class="dir-container">
+            <!-- PROVINCIA -->
+            <mat-form-field appearance="outline">
+              <mat-label> Provincia</mat-label>
+              <mat-select name="provincia"  id="provincia" [(ngModel)]="item.provincia">
+                  <mat-option required value="1">Provincia</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col">
+          <div class="dir-container">
+            <!-- DISTRITO -->
+            <mat-form-field appearance="outline">
+              <mat-label> Distrito</mat-label>
+              <mat-select name="distrito"  id="distrito" [(ngModel)]="item.distrito">
+                  <mat-option required value="1">Distrito</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col">
+          <div class="dir-container">
+            <!-- UBIGEO readonly -->
+            <mat-form-field appearance="outline">
+              <mat-label>Ubigeo</mat-label>
+              <input 
+                  matInput  name="ubigeo"  id="ubigeo" [(ngModel)]="item.ubigeo">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      </tr>
+          
+      <!-- -----------------------CONTACTO------------------- -->
+      <div class="grid-linea">
+        <div>
+          <hr class="linea1"  width="1px" noshade="noshade">
+        </div>
+        <div class="icon">
+          <mat-icon>perm_contact_calendar</mat-icon> 
+        </div>
+        <div>
+          <hr class="linea2"  width="1px" noshade="noshade">
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md">
+          <div class="campo-container">
+            <!-- NOMBRE -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="campo-container">
+            <!-- CORREO-->
+            <mat-form-field appearance="outline" class="campo2">
+              <mat-label>Correo </mat-label>
+                <input matInput 
+                  placeholder="pat@example.com" 
+                >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="campo-container">
+            <!-- CARGO -->
+            <mat-form-field  appearance="outline">
+              <mat-label>Cargo</mat-label>
+                <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="campo-container bo">
+            <!-- TELEFONO -->
+            <mat-form-field appearance="outline">
+              <mat-label> Telefono </mat-label>
+              <input matInput type="text" >
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- -----------------------CUENTA TERCEROS------------------- -->
+      <div class="grid-linea">
+        <div>
+            <hr class="linea1"  width="1px" noshade="noshade">
+        </div>
+        <div class="icon">
+            <mat-icon>savings</mat-icon> 
+        </div>
+        <div>
+            <hr class="linea2"  width="1px" noshade="noshade">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <div class="cue-container">
+            <!-- BANCO -->
+            <mat-form-field  appearance="outline">
+              <mat-label> Banco </mat-label>
+                <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="cue-container">
+            <!-- N° CUENTA -->
+            <mat-form-field  appearance="outline">
+              <mat-label> N° Cuenta</mat-label>
+                <input matInput >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="cue-container">
+            <!-- N° CCI -->
+            <mat-form-field  appearance="outline">
+              <mat-label> CCI</mat-label>
+                <input matInput >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="cue-container">
+            <!--Moneda -->
+            <mat-form-field  appearance="outline">
+              <mat-label> Moneda</mat-label>
+                <input matInput >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="cue-container">
+            <!-- TIPO DE CUENTA-->
+            <mat-form-field appearance="outline">
+              <mat-label> Tipo de Cuenta</mat-label>
+                <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-op">
+        <div class="campo-container ri-com">
+          <!-- COMENTARIO-->
+          <mat-form-field appearance="outline">
+            <mat-label>Comentario <mat-icon>sentiment_very_satisfied</mat-icon></mat-label>
+            <textarea matInput  id="comentario" name="comentario"  [(ngModel)]="proveedor.comentario"></textarea>
+          </mat-form-field>
+        </div>
+        <div align="end" class="action">
+          <button mat-button type="submit" color="primary" > <!-- [disabled]="proveedorForm.invalid" -->
+            Agregar
+          </button>
+        </div>
+      </div>
+    </form><!-- end form -->
+  </div> <!-- end card-body -->
+</div> <!-- end container -->
+<h5 class="mb-2 subtitulo text-secondary">Ubicacion</h5>
+<input  type="text" id="codigo" name="codigo"  [(ngModel)]="proveedor.codigo">
 <router-outlet></router-outlet>

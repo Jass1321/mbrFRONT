@@ -22,9 +22,9 @@ export class CuentaBancariaService {
     return this.httpClient.get<any>(`${this.cuentaURL}/listBanco/${id}/cuentas`);
   }
 
-  /* DETAIL */
+  /* DETAIL -- AUN NO SE USA */
   getCuentaIdByIdDep(idCuenta:number, idBanco:number):Observable<any>{
-    return this.httpClient.get<any>(`${this.cuentaURL}/listBanco//${idBanco}/areas/${idCuenta}`);
+    return this.httpClient.get<any>(`${this.cuentaURL}/listBanco//${idBanco}/cuentas/${idCuenta}`);
   }
 
   /*  CREATE BY ID BANCO */

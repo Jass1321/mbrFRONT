@@ -11,8 +11,8 @@ import { ProveedorListadoComponent } from './pages/proveedor-listado/proveedor-l
 import { ProveedorEditadoComponent } from './pages/proveedor-editado/proveedor-editado.component';
 
 //external FIJARSE SI DEBE O NO 
-
-import { FormsModule } from '@angular/forms';
+import { MaterialMaestroModule } from '../../../../plus/material.maestro.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,6 +28,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ProveedoresRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    MaterialMaestroModule
   ]
 })
 export class ProveedoresModule { }

@@ -10,11 +10,11 @@ import { Proveedor } from '../../../../models/proveedor';
   styleUrls: ['./proveedor-detalle.component.css']
 })
 export class ProveedorDetalleComponent implements OnInit {
-
   
-
-  proveedor: Proveedor = null!;
+  idProv!: number;
   
+  proveedor!: Proveedor;
+
   constructor(
     private proveedorService: ProveedorService,
     private activatedRoute: ActivatedRoute,
@@ -23,21 +23,13 @@ export class ProveedorDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.proveedorService.detail(+id).subscribe(
+    this.idProv = this.activatedRoute.snapshot.params['id'];
+
+    this.proveedorService.getProveedorById(this.idProv).subscribe(
       data => {
-        this.proveedor =data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/maestro/tercero/proveedores/list']);
-      }
-    );
+        this.proveedor = data;
+      });
+
   }
 
-  volver(): void {
-    this.router.navigate(['/maestro/tercero/proveedores/list']);
-  }
 }

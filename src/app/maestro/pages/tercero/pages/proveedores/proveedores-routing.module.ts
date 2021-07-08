@@ -15,7 +15,7 @@ const routes: Routes = [
       {path: 'list', component: ProveedorListadoComponent},
       {path: 'detail/:id', component: ProveedorDetalleComponent},
       {path: 'add', component: ProveedorNuevoComponent},
-      {path: 'editar/:id', component: ProveedorEditadoComponent},
+      {path: 'edit/:id', component: ProveedorEditadoComponent},
     ]
   },
 ];

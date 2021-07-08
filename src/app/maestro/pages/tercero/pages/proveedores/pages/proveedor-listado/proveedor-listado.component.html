@@ -1,56 +1,95 @@
-
-
-<div class="container-fluid pb-3">
-    <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
-      
-      <div class="bg-light border rounded-3">
-        <h2 class="text-center">Proveedor</h2>
-          <table class="table table-dark">
-            <thead>
-              <tr>
-                <th scope="col" (click)="setOrder('id')">Id</th>
-                <th scope="col">CODIGO</th>
-                <th scope="col">RUC</th>
-                <th scope="col" (click)="setOrder('nombre')">Razon Social</th>
-                <th scope="col">Rubro de Actividad</th>
-                <th scope="col">Fecha de Inicio</th>
-                <th scope="col">Comentario</th> 
-                <th scope="col">Ver</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Borrar</th>
-                <th scope="col"><i class="fas fa-sort" (click)="sort()"></i></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let proveedor of proveedores">
-                <td>{{proveedor.id}}</td>
-                <td>{{proveedor.codigo}}</td>
-                <td>{{proveedor.ruc}}</td>
-                <td>{{proveedor.nombre}}</td>
-                <td>{{proveedor.rubro}}</td>
-                <td>{{proveedor.fechaInicio}}</td>
-                <td>{{proveedor.comentario}}</td>
-                <td><button class="btn btn-outline-primary" routerLink="/maestro/tercero/proveedores/detail/{{proveedor.id}}"><i class="far fa-eye"></i> Ver</button></td>
-                <td><button class="btn btn-outline-warning" routerLink="/maestro/tercero/proveedores/edit/{{proveedor.id}}"><i class="far fa-edit"></i> Editar</button></td>
-                <td><button class="btn btn-outline-danger"  (click)="borrar(proveedor.id)"><i class="far fa-trash-alt"></i> Eliminar</button></td>
-                <td></td> 
-              </tr>
-              <tr>
-                <td><i class="fas fa-angle-double-left fa-2x" (click)="rewind()"></i></td>
-                <td colspan="2">
-                  <span *ngFor="let p of totalPages; let i = index">
-                    <a style="cursor: pointer;" (click)="setPage(i)"
-                    [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+<div class="row align-items-md-stretch">
+  <!-- START LIST PROVEEDORES-->
+  <div class="col-md-12">
+    <div class="cabecera  rounded-3 bg-white shadow-sm">
+      <!-- CABECERA -->
+      <div class="container container-fluid normal-form">
+        <div>
+            <button mat-flat-button  color="primary" (click)="openNewProv()">
+              <mat-icon class="btn-add">add</mat-icon>Proveedor
+            </button> 
+        </div>
+        <div align="end">
+          <mat-form-field>
+            <input matInput  >
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item >
+              <mat-icon>get_app</mat-icon>
+              <span>Exportar</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Remove All</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+      <!-- DATA PROVEEDOR-->
+      <div class="container">
+        <table class="table table-sm  table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="check" >
+                <span class="custom-checkbox">
+                  <input type="checkbox" id="selectAll">
+                  <label for="selectAll"></label>
                   </span>
-                </td>
-                <td><i class="fas fa-angle-double-right fa-2x" (click)="forward()"></i></td>
-              </tr>
-            </tbody>
-          </table>  
+              </th>
+              <th scope="col" class="title text-secondary" >Codigo</th>
+              <th scope="col" class="title text-secondary" >RUC</th>
+              <th scope="col" class="title text-secondary" >Fecha de Inicio</th>
+              <th scope="col" class="title text-secondary" (click)="setOrder('nombre')">Razon Social <i class="fas fa-sort" style="margin-left: 20px;" (click)="sort()"></i></th>
+              <th scope="col" class="title text-secondary" >Rubro de Actividad</th>
+              <th scope="col" class="title text-secondary" > </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of proveedores">
+              <td>
+                <span class="custom-checkbox">
+                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                  <label for="checkbox1"></label>
+                  </span> 
+              </td>
+              <td>{{item.codigo}}</td>
+              <td>{{item.ruc}}</td>
+              <td>{{item.rubroActividad}}</td>
+              <td>{{item.razonSocial}}</td>
+              <td>{{item.fechaInicio}}</td>
+              <td align="end">
+                <a (click)="openDetailProv(item.id)"><i class="signo fa fa-eye"></i></a>  
+                <a (click)="openUpdateProv(item.id)"   ><i class="signo fas fa-edit"></i></a>  
+                <a (click)="deleteProv(item.id)"><i class="signo fas fa-trash"></i></a>  
+              </td>
+            </tr>
+          </tbody>
+        </table>  
       </div>
-      <div class="bg-light border rounded-3">
-        <app-proveedor-busqueda></app-proveedor-busqueda>
-      </div>
+      <!-- PAGINATION DEPA-->
+      <nav align="center" aria-label="...">
+          <ul class="pagination">
+            <li class="page-item" style="margin-right: 10px;">
+              <i class="pag fas fa-angle-double-left fa-1x" (click)="rewind()"></i>
+            </li>
+            <li class="page-item"> 
+              <span *ngFor="let p of totalPages; let i = index">
+                <a style="cursor: pointer;" (click)="setPage(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+              </span>
+            </li>
+            <li class="page-item">
+              <i class="pag fas fa-angle-double-right fa-1x" (click)="forward()"></i>
+            </li>
+          </ul>
+        </nav>
     </div>
+  </div>
+  <!-- END LIST PROVEEDOR-->
 </div>
+  
 <router-outlet></router-outlet>
+  

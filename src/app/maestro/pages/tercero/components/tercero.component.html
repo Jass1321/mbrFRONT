@@ -1,23 +1,15 @@
-<br>
-<div class="bg-dark text-secondary px-4 py-5 text-center">
-  <div class="py-5">
-    <h1 class="display-5 fw-bold text-white">TERCEROS</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="fs-5 mb-4">Proveedores y clientes  </p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" routerLink="/maestro/tercero/proveedores/list" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">
-          <i class="far fa-list-alt"></i> Ver Proveedores
-        </button>
-        <button type="button" routerLink="/maestro/tercero/clientes/list" class="btn btn-outline-light btn-lg px-4">
-          <i class="far fa-list-alt"></i>Ver Clientes
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<nav class="signo navbar">
+  <h4 class="titulo text-secondary">Terceros</h4>
+  <ol class="breadcrumb bg-transparent text-secondary">
+      <li class="breadcrumb-item active"></li>
+      <li class="breadcrumb-item"> <a routerLink="/maestro/tercero/proveedores/list"> Proveedores</a></li>
+      <li class="breadcrumb-item"> <a routerLink="/maestro/tercero/clientes/list"> Clientes</a></li>
+    </ol>
+</nav>
 
-<router-outlet></router-outlet>
-<br>
+<div class="espacio">
+  <router-outlet></router-outlet>
+</div>  
 
     
 

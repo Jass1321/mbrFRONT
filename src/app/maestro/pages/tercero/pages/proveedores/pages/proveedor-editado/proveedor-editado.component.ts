@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProveedorService } from 'src/app/maestro/pages/tercero/services/proveedor.service';
@@ -11,9 +12,16 @@ import { Proveedor } from '../../../../models/proveedor';
 })
 export class ProveedorEditadoComponent implements OnInit {
 
-  proveedor: Proveedor = null!;
+  idProv!: number;
+  proveedorForm!: FormGroup;
+  direccionForm!: FormGroup;
+  contactoForm!: FormGroup;
+  cuentaForm!: FormGroup;
+
+  proveedor!: Proveedor;
 
   constructor(
+    public fb: FormBuilder,
     private proveedorService: ProveedorService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
@@ -21,43 +29,57 @@ export class ProveedorEditadoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.editar();
+    this.idProv = this.activatedRoute.snapshot.params['id'];
+
+    this.proveedorForm = this.fb.group({
+      id : [''],
+      codigo: ['', Validators.required],
+      ruc: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      razonSocial: ['', Validators.required],
+      rubroActividad: ['', Validators.required],
+      comentario: ['', Validators.required]
+    });;
+    this.direccionForm = this.fb.group({
+      id : [''],
+      domicilio: ['', Validators.required],
+      pais: ['', Validators.required],
+      departamento: ['', Validators.required],
+      provincia: ['', Validators.required],
+      distrito: ['', Validators.required],
+      ubigeo: ['', Validators.required]
+    });
+    this.contactoForm = this.fb.group({
+      id : [''],
+      nombre: ['', Validators.required],
+      cargo: ['', Validators.required],
+      correo: ['', Validators.required],
+      telefono: ['', Validators.required],
+    });
+    this.cuentaForm = this.fb.group({
+      id : [''],
+      num: ['', Validators.required],
+      cci: ['', Validators.required],
+      moneda: ['', Validators.required],
+      entidad: ['', Validators.required],
+      tipoCuenta: ['', Validators.required],
+    });
+
+    this.proveedorService.getProveedorById(this.idProv).subscribe(
+      data => {
+        this.proveedor = data;
+    });
   }
 
-  editar(){
-    const id = this.activatedRoute.snapshot.params.id;
-    this.proveedorService.detail(+id).subscribe(
+  onUpdate(): void {
+    this.proveedorService.updateProveedor(this.idProv, this.proveedorForm.value, this.direccionForm.value, this.contactoForm.value, this.cuentaForm.value).subscribe(
       data => {
-        this.proveedor =data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/maestro/tercero/listar']);
-      }
-    );
+         this.router.navigate(['/maestro/tercero/proveedores/list']);
+      }, 
+      error =>{
+        console.log(error);
+      });
   }
 
   
-
-  Actualizar(): void {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.proveedorService.update(this.proveedor).subscribe(
-      data => {
-        this.toastr.success('Producto Actualizado', 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-        this.router.navigate(['/maestro/tercero/proveedores/list']);
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/maestro/tercero/proveedores/list']);
-      }
-    );
-  }
-
-
 }
