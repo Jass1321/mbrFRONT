@@ -1,0 +1,23 @@
+/* CARDS */
+.card{
+  background-color: #727176;
+}
+
+.container-fluid{
+  margin-top: 15px;
+}
+
+.col {
+  margin-bottom: 15px ;
+}
+
+.card-title{
+  font-size:17px 
+}
+.d-icons{
+  height:60px !important;
+  width:60px !important;
+  font-size:60px !important;
+  color: white;
+}
+

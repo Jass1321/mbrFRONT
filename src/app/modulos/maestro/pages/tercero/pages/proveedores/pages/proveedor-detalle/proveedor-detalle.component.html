@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-md-4 mx-auto">
+          <div class="card" style="width: 18rem;">
+              <div class="card-header text-center">
+                Detalle
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Codigo: </b>{{proveedor.codigo}}</li>
+                <li class="list-group-item"><b>Razon Social: </b>{{proveedor.razonSocial}}</li>
+                <li class="list-group-item"><b>Fecha de Inicio: </b>{{proveedor.fechaInicio}}</li>
+                <li class="list-group-item"><b>Rubro de Actividad: </b>{{proveedor.rubroActividad}}</li>
+                <li class="list-group-item"><b>Comentario: </b>{{proveedor.comentario}}</li> -->
+                
+              </ul>
+              <tr *ngFor="let item of direccion">
+                <td>{{item.domicilio}}</td>
+                <td>{{item.pais}}</td>
+                <td>{{item.departamento}}</td>
+                <td>{{item.provincia}}</td>
+                <td>{{item.distrito}}</td>
+                <td>{{item.ubigeo}}</td>
+            </div>
+            
+      </div>
+  </div>
+  </div>

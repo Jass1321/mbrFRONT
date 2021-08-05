@@ -1,0 +1,360 @@
+<div class="container-fluid rounded-3 bg-white border-0 shadow-sm">
+    <div class="card-body">
+      <!-- START UPDATE PROVEEDORES-->
+      <form>  <!-- [formGroup]="proveedorForm"  -->
+        <!-- -----------------------  SUBTITLE------------------- -->      
+        <div class="card-header bg-transparent" style="height: 40px;">
+          <h4 class="header-title text-secondary titulo ">  REGISTRO - {{proveedor.codigo}} </h4>
+        </div>
+        <!-- -----------------------FORM BASIC TERCERO------------------- -->
+        <div class="row g-4" >
+          <div class="col-md">
+            <div class="campo-container">
+              <!-- RUC -->
+              <mat-form-field appearance="outline">
+                <mat-label> RUC </mat-label>
+                <input  matInput type="number" 
+                        id="ruc" name="ruc" 
+                        [(ngModel)]="proveedor.ruc">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="campo-container">
+              <!-- RAZON SOCIAL -->
+              <mat-form-field appearance="outline">
+                <mat-label> Razón Social </mat-label>
+                <input  matInput type="text" 
+                        id="razonSocial" name="razonSocial" 
+                        [(ngModel)]="proveedor.razonSocial">
+              </mat-form-field>
+            </div> 
+          </div>
+          <div class="col-md">
+            <div class="campo-container">
+              <!-- RUBRO DE ACTIVIDAD -->
+              <mat-form-field appearance="outline">
+                <mat-label> Rubro de Actividad </mat-label>
+                <input  matInput type="text" 
+                        id="rubroActividad" name="rubroActividad" 
+                        [(ngModel)]="proveedor.rubroActividad">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="campo-container bo">
+              <!-- FECHA DE INICIO -->
+              <mat-form-field appearance="outline">
+                <mat-label> Fecha de Inicio </mat-label>
+                <input  matInput type="date" 
+                        id="fechaInicio" name="fechaInicio" 
+                        [(ngModel)]="proveedor.fechaInicio">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------START-UBICACION--------------- -->
+        <div class="grid-linea">
+          <div>
+            <hr class="linea1"  width="1px" noshade="noshade">
+          </div>
+          <div class="icon">
+            <mat-icon>location_on</mat-icon> 
+          </div>
+          <div>
+            <hr class="linea2"  width="1px" noshade="noshade">
+          </div>
+        </div>
+  
+        <div *ngFor="let item of direccion; let in=index" >
+  
+          <div class="dir-container">
+            <!-- DIRECCION-->
+            <mat-form-field appearance="outline" class="domicilio">
+                <input  id="domicilio{{in}}" name="domicilio{{in}}"  
+                        [(ngModel)]="direccion[in].domicilio" 
+                        placeholder="Dirección" matInput>
+            </mat-form-field>
+          </div>
+          <div class="grid-dir">
+            <div  class="grid-ubi">
+              <div class="campo-container ri-dir">
+                 <!-- PAIS -->
+                <mat-form-field appearance="outline">
+                  <mat-label> Pais</mat-label>
+                  <mat-select id="pais{{in}}" name="pais{{in}}" 
+                              (selectionChange)="onSelectDepartamento($event.value, in)"
+                              [(ngModel)]="direccion[in].pais">
+                    <mat-option>
+                      <ngx-mat-select-search [formControl]="paisGroupsFilterCtrl" placeholderLabel="Busque aquí"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-optgroup *ngFor="let group of filteredPaisGroups | async" [label]="group.letra" >
+                      <mat-option *ngFor="let pais of group.paises" [value]="pais.pa" >
+                        {{pais.pa}}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="campo-container ri-dir le-dir">
+                <!-- DEPARTAMENTO -->
+                <mat-form-field appearance="outline">
+                  <mat-label> Departamento</mat-label>
+                  <mat-select id="departamento{{in}}" name="departamento{{in}}" 
+                              (selectionChange)="onSelectProvincia($event.value, in)" 
+                              [(ngModel)]="direccion[in].departamento" 
+                              [disabled]="!ubigeoGroups[in].show">
+                    <mat-option *ngFor="let dep of depa" value={{dep.getCode()}}>
+                      {{dep.getName()}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+  
+              <div class="campo-container ri-dir le-dir">
+                <!-- PROVINCIA -->
+                <mat-form-field appearance="outline">
+                  <mat-label> Provincia</mat-label>
+                  <mat-select id="provincia{{in}}" name="provincia{{in}}" 
+                              (selectionChange)="onSelectDistrito($event.value, in)"  
+                              [(ngModel)]="direccion[in].provincia"
+                              [disabled]="ubigeoGroups[in].prov_groups==null">
+                    <mat-option *ngFor="let pro of ubigeoGroups[in].prov_groups" value={{pro.getCode()}}>
+                      {{pro.getName()}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="campo-container ri-dir le-dir">
+                <!-- DISTRITO -->
+                <mat-form-field appearance="outline">
+                  <mat-label> Distrito</mat-label>
+                  <mat-select id="distrito{{in}}" name="distrito{{in}}"
+                              (selectionChange)="obtenerUbigeo($event.value, in)" 
+                              [(ngModel)]="direccion[in].distrito"
+                              [disabled]="ubigeoGroups[in].dist_groups==null">
+                      <mat-option *ngFor="let dis of ubigeoGroups[in].dist_groups" value={{dis.getCode()}}>
+                        {{dis.getName()}}
+                      </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="campo-container le-dir">
+                <!-- UBIGEO -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Ubigeo</mat-label>
+                  <input  id="ubigeo{{in}}" name="ubigeo{{in}}" 
+                          [(ngModel)]="direccion[in].ubigeo"
+                          value="{{ubigeoGroups[in].ubigeo}}"
+                          matInput readonly >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="btnOption" align="center">
+              <span *ngIf="in==0">
+                <button mat-button color="primary" (click)="addDireccion(this)" >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </span>
+              <span *ngIf="in!=0">
+                <button mat-button color="warn" (click)="delDireccion(this)" > 
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------END-UBICACION--------------- -->
+        <!-- ---------------START-CONTACTO--------------- -->
+        <div class="grid-linea">
+          <div>
+            <hr class="linea1"  width="1px" noshade="noshade">
+          </div>
+          <div class="icon">
+            <mat-icon>perm_contact_calendar</mat-icon> 
+          </div>
+          <div>
+            <hr class="linea2"  width="1px" noshade="noshade">
+          </div>
+        </div>
+        
+        <div *ngFor="let item of contacto; let in=index">
+         
+          <div class="grid-cue">
+            <div class="row">
+              <div class="col col-md-6">
+                <div class="row g-2" >
+                  <div class="col">
+                    <div class="campo-container ri-dir">
+                      <!-- NOMBRE -->
+                      <mat-form-field appearance="outline">
+                        <mat-label> Nombre</mat-label>
+                        <input  matInput
+                                id="nombre{{in}}" name="nombre{{in}}" 
+                                [(ngModel)]="contacto[in].nombre">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="campo-container le-dir bo">
+                      <!-- CARGO -->
+                      <mat-form-field  appearance="outline">
+                        <mat-label> Cargo</mat-label>
+                        <input  matInput 
+                                id="cargo{{in}}" name="cargo{{in}}"
+                                [(ngModel)]="contacto[in].cargo">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row g-2" >
+                  <div class="col">
+                    <div class="campo-container ri-dir">
+                      <!-- CORREO-->
+                      <mat-form-field appearance="outline">
+                        <mat-label> Correo</mat-label>
+                        <input  matInput 
+                                id="correo{{in}}" name="correo{{in}}"
+                                [(ngModel)]="contacto[in].correo">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="campo-container le-dir bo">
+                      <!-- TELEFONO -->
+                      <mat-form-field appearance="outline">
+                        <mat-label> Telefono</mat-label>
+                        <input  matInput 
+                                id="telefono{{in}}" name="telefono{{in}}"
+                                [(ngModel)]="contacto[in].telefono">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btnOption" align="center">
+              <span *ngIf="in==0">
+                <button mat-button color="primary" (click)="addContacto(this)" >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </span>
+              <span *ngIf="in!=0">
+                <button mat-button color="warn" (click)="delContacto(this)"> 
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------END-CONTACTO--------------- -->
+        <!-- ---------------START-CUENTA--------------- -->
+        <div class="grid-linea">
+          <div>
+              <hr class="linea1"  width="1px" noshade="noshade">
+          </div>
+          <div class="icon">
+              <mat-icon>savings</mat-icon> 
+          </div>
+          <div>
+              <hr class="linea2"  width="1px" noshade="noshade">
+          </div>
+        </div>
+  
+        <div *ngFor="let item of cuenta; let in=index" >
+         
+          <div class="grid-cue">
+            <div class="row">
+              <div class="col col-md-6">
+                <div class="row g-2" >
+                  <div class="col">
+                    <div class="campo-container ri-dir">
+                      <!-- N° CUENTA -->
+                      <mat-form-field  appearance="outline">
+                        <mat-label> N° Cuenta</mat-label>
+                          <input  matInput type="number"
+                                  id="num{{in}}" name="num{{in}}"
+                                  [(ngModel)]="cuenta[in].num">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="campo-container le-dir bo">
+                      <!-- N° CCI -->
+                      <mat-form-field  appearance="outline">
+                        <mat-label> CCI</mat-label>
+                          <input  matInput type="number"
+                                  id="cci{{in}}" name="cci{{in}}"
+                                  [(ngModel)]="cuenta[in].cci">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row g-2" >
+                  <div class="col">
+                    <div class="campo-container ri-dir">
+                      <!--Moneda -->
+                      <mat-form-field  appearance="outline">
+                        <mat-label> Moneda</mat-label>
+                          <mat-select id="moneda{{in}}" name="moneda{{in}}"
+                                      [(ngModel)]="cuenta[in].moneda">
+                            <mat-option  value="Soles">En soles</mat-option>
+                            <mat-option  value="Dolares">En Dolares americanos</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="campo-container le-dir bo">
+                      <!-- Entidad-->
+                      <mat-form-field appearance="outline">
+                        <mat-label> Entidad</mat-label>
+                          <input  matInput
+                                  id="entidad{{in}}" name="entidad{{in}}"
+                                  [(ngModel)]="cuenta[in].entidad">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btnOption" align="center">
+              <span *ngIf="in==0">
+                <button mat-button color="primary" (click)="addCuenta(this)" >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </span>
+              <span *ngIf="in!=0">
+                <button mat-button color="warn" (click)="delCuenta(this)" > 
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------END-CUENTA--------------- -->
+  
+        <div class="grid-op">
+          <div class="campo-container ri-com">
+            <!-- COMENTARIO-->
+            <mat-form-field appearance="outline">
+              <mat-label>Comentario <mat-icon>sentiment_very_satisfied</mat-icon></mat-label>
+              <textarea matInput  id="comentario" name="comentario"  [(ngModel)]="proveedor.comentario"></textarea>
+            </mat-form-field>
+          </div>
+            <!-- SAVE-->
+          <div align="end" class="action">
+            <button mat-button type="submit" (click)="onUpdate()" color="primary" > <!-- [disabled]="proveedorForm.invalid" -->
+              Actualizar
+            </button>
+          </div>
+        </div>
+      </form><!-- end form -->
+    </div> <!-- end card-body -->
+  </div> <!-- end container -->
+  
+  <router-outlet></router-outlet>
