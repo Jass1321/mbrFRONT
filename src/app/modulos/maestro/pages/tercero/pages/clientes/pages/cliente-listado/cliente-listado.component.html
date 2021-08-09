@@ -1,12 +1,98 @@
-<div class="container-fluid pb-3">
-    <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
-      
-      <div class="bg-light border rounded-3">
-        <p> listado page</p>
+<!-- START LIST PROVEEDORES-->
+<div class="container-fluid rounded-3 bg-white border-0 shadow-sm campo"> 
+  <div class="card-body"> 
+    
+    <!-- CABECERA -->
+    <div class=" normal-form">
+      <div>
+          <button mat-flat-button  color="primary" (click)="openNewCli()">
+            <mat-icon class="btn-add">add</mat-icon>Cliente
+          </button> 
       </div>
-      <div class="bg-light border rounded-3">
-        <app-cliente-busqueda></app-cliente-busqueda>
+      <div align="end">
+        <mat-form-field class="busqueda">
+          <input  matInput  type="text" name="filterProv"
+                  class="form-control"
+                  placeholder="Buscar..."
+                  [(ngModel)]="filterCli">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item >
+            <mat-icon>get_app</mat-icon>
+            <span>Exportar</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Remove All</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
-</div>
+
+    <!-- DATA PROVEEDOR-->
+    <div style="overflow-x:auto;">
+      <table class="table table-sm  table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="check" >
+              <span class="custom-checkbox">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll"></label>
+                </span>
+            </th>
+            <th scope="col" class="title text-secondary" (click)="setOrder('codigo')">        Codigo             <i class="fas fa-sort espacio"  (click)="sort()"></i></th>
+            <th scope="col" class="title text-secondary" (click)="setOrder('ruc')">           RUC                <i class="fas fa-sort espacio"  (click)="sort()"></i></th>
+            <th scope="col" class="title text-secondary" (click)="setOrder('razonSocial')">   Razon Social       <i class="fas fa-sort espacio"  (click)="sort()"></i></th>
+            <th scope="col" class="title text-secondary" (click)="setOrder('rubroActividad')">Rubro de Actividad <i class="fas fa-sort espacio"  (click)="sort()"></i></th>
+            <th scope="col" class="title text-secondary" (click)="setOrder('fechaInicio')">   Fecha de Inicio    <i class="fas fa-sort espacio"  (click)="sort()"></i></th>
+            <th scope="col" class="title text-secondary" > </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of clientes | filterCliente:filterCli">
+            <td>
+              <span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                <label for="checkbox1"></label>
+                </span> 
+            </td>
+            <td>{{item.codigo}}</td>
+            <td>{{item.ruc}}</td>
+            <td>{{item.razonSocial}}</td>
+            <td>{{item.rubroActividad}}</td>
+            <td>{{item.fechaInicio}}</td>
+            <td align="end">
+              <a (click)="openDetailCli(item.id)"><i class="signo fa fa-eye"></i></a>  
+              <a (click)="openUpdateCli(item.id)"><i class="signo fas fa-edit"></i></a>  
+              <a (click)="deleteCli(item.id)"><i class="signo fas fa-trash"></i></a>  
+            </td>
+          </tr>
+        </tbody>
+      </table>  
+    </div>
+    <!-- PAGINATION DEPA-->
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item" style="margin-right: 10px;">
+            <i class="pag fas fa-angle-double-left fa-1x" (click)="rewind()"></i>
+          </li>
+          <li class="page-item"> 
+            <span *ngFor="let p of totalPages; let i = index">
+              <a style="cursor: pointer;" (click)="setPage(i)" [ngClass]="{'text-primary': i === page }">{{ i+1 }}&nbsp;&nbsp;&nbsp;</a>
+            </span>
+          </li>
+          <li class="page-item">
+            <i class="pag fas fa-angle-double-right fa-1x" (click)="forward()"></i>
+          </li>
+        </ul>
+      </nav>
+  </div><!-- end card-body-->
+</div><!-- end container-->
+<!-- END LIST PROVEEDOR-->
+
 <router-outlet></router-outlet>
+  

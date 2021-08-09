@@ -14,7 +14,7 @@ import { ProveedorEditadoComponent } from './pages/proveedor-editado/proveedor-e
 import { MaterialMaestroModule } from '../../../../plus/material.maestro.module';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { FilterProveedorPipe } from 'src/app/pipes/filter-proveedor.pipe';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     ProveedorDetalleComponent,
     ProveedorListadoComponent,
     ProveedorEditadoComponent,
-    FilterPipe
+    FilterProveedorPipe
   ],
   imports: [
     CommonModule,

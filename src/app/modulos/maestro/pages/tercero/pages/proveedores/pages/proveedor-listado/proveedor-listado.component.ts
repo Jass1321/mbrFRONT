@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { ProveedorService } from 'src/app/modulos/maestro/pages/tercero/services/proveedor.service';
-import { ProveedorNuevoComponent } from '../proveedor-nuevo/proveedor-nuevo.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Proveedor } from '../../../../models/proveedor';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
+import { ProveedorService } from 'src/app/modulos/maestro/pages/tercero/services/proveedor.service';
+
 
 @Component({
   selector: 'app-proveedor-listado',

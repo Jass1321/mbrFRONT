@@ -17,14 +17,11 @@ import { Error500Component } from './layouts/page/error500/error500.component';
 //Modulos principales
 import { MateriaLayoutslModule } from './layouts/extra/material/material.layouts.module';
 import { ToastrModule } from 'ngx-toastr';
-import { FilterTerceroPipe } from './pipes/filter-tercero.pipe';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    FilterTerceroPipe
   ],
   imports: [
     BrowserModule,

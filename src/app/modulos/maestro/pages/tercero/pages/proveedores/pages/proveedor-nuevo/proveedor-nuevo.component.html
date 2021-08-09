@@ -258,59 +258,65 @@
       <div *ngFor="let item of cuenta; let in=index" >
        
         <div class="grid-cue">
-          <div class="row">
-            <div class="col col-md-6">
-              <div class="row g-2" >
-                <div class="col">
-                  <div class="campo-container ri-dir">
-                    <!-- N° CUENTA -->
-                    <mat-form-field  appearance="outline">
-                      <mat-label> N° Cuenta</mat-label>
-                        <input  matInput type="number"
-                                id="num{{in}}" name="num{{in}}"
-                                [(ngModel)]="cuenta[in].num">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="campo-container le-dir bo">
-                    <!-- N° CCI -->
-                    <mat-form-field  appearance="outline">
-                      <mat-label> CCI</mat-label>
-                        <input  matInput type="number"
-                                id="cci{{in}}" name="cci{{in}}"
-                                [(ngModel)]="cuenta[in].cci">
-                    </mat-form-field>
-                  </div>
-                </div>
+          <div class="row" >
+            <div class="col">
+              <div class="campo-container">
+                <!-- Entidad-->
+                <mat-form-field appearance="outline">
+                  <mat-label> Entidad</mat-label>
+                    <input  matInput
+                            id="entidad{{in}}" name="entidad{{in}}"
+                            [(ngModel)]="cuenta[in].entidad">
+                </mat-form-field>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="row g-2" >
-                <div class="col">
-                  <div class="campo-container ri-dir">
-                    <!--Moneda -->
-                    <mat-form-field  appearance="outline">
-                      <mat-label> Moneda</mat-label>
-                        <mat-select id="moneda{{in}}" name="moneda{{in}}"
-                                    [(ngModel)]="cuenta[in].moneda">
-                          <mat-option  value="Soles">En soles</mat-option>
-                          <mat-option  value="Dolares">En Dolares americanos</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="campo-container le-dir bo">
-                    <!-- Entidad-->
-                    <mat-form-field appearance="outline">
-                      <mat-label> Entidad</mat-label>
-                        <input  matInput
-                                id="entidad{{in}}" name="entidad{{in}}"
-                                [(ngModel)]="cuenta[in].entidad">
-                    </mat-form-field>
-                  </div>
-                </div>
+            <div class="col">
+              <div class="campo-container">
+                <!-- TIPO DE CUENTA -->
+                <mat-form-field  appearance="outline">
+                  <mat-label> Tipo de Cuenta</mat-label>
+                    <mat-select id="tipoCuenta{{in}}" name="tipoCuenta{{in}}"
+                                [(ngModel)]="cuenta[in].tipoCuenta">
+                      <mat-option  value="Sueldo">Sueldo</mat-option>
+                      <mat-option  value="Corriente">Corriente</mat-option>
+                      <mat-option  value="Ahorros">Ahorros</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col">
+              <div class="campo-container">
+                <!-- N° CUENTA -->
+                <mat-form-field  appearance="outline">
+                  <mat-label> N° Cuenta</mat-label>
+                    <input  matInput type="number"
+                            id="num{{in}}" name="num{{in}}"
+                            [(ngModel)]="cuenta[in].num">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col">
+              <div class="campo-container">
+                <!-- N° CCI -->
+                <mat-form-field  appearance="outline">
+                  <mat-label> CCI</mat-label>
+                    <input  matInput type="number"
+                            id="cci{{in}}" name="cci{{in}}"
+                            [(ngModel)]="cuenta[in].cci">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col">
+              <div class="campo-container">
+                <!--Moneda -->
+                <mat-form-field  appearance="outline">
+                  <mat-label> Moneda</mat-label>
+                    <mat-select id="moneda{{in}}" name="moneda{{in}}"
+                                [(ngModel)]="cuenta[in].moneda">
+                      <mat-option  value="Soles">En soles</mat-option>
+                      <mat-option  value="Dolares">En dolares americanos</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </div>

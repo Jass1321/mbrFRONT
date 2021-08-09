@@ -8,10 +8,12 @@ import { TerceroComponent } from '../../pages/tercero/components/tercero.compone
 @NgModule({
   declarations: [
     TerceroComponent
+    
   ],
   imports: [
     CommonModule,
     TerceroRoutingModule,
+    
   ]
 })
 export class TerceroModule { }

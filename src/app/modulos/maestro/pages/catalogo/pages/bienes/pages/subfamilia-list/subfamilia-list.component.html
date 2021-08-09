@@ -1,0 +1,52 @@
+<!-- START SUB BY ID FAM -->
+<!-- NEW SUB-->
+<div class="container container-fluid">
+    <form (ngSubmit)="onCreateSub()" [formGroup]="subForm">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="text" class="name form-control" formControlName="nombre">
+                <button mat-button type="submit" color="primary" [disabled]="subForm.invalid">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- LIST SUB-->
+<div class="container">
+    <table class="table table-sm  table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="check">
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="selectAll">
+                        <label for="selectAll"></label>
+                    </span>
+                </th>
+                <th class="title text-secondary" scope="col">Subfamilias</th>
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of subfamilias">
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
+                </td>
+                <td>{{item.nombre}}</td>
+                <td align="end">
+                    <a (click)="onUpdateSub(item)"><i class="signo fas fa-edit"></i></a>
+                    <a (click)="onDeleteSub(item.id)"><i class="signo fas fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="detail text-secondary" align="end">
+    <h5>Familia - {{idFam}}</h5>
+</div>
+
+<!-- END LIST SUB-->

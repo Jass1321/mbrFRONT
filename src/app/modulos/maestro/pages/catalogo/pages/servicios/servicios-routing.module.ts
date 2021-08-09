@@ -3,19 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ServiciosComponent } from './components/servicios.component';
 
-import { ServicioDetalleComponent } from './pages/servicio-detalle/servicio-detalle.component';
-import { ServicioEditadoComponent } from './pages/servicio-editado/servicio-editado.component';
-import { ServicioListadoComponent } from './pages/servicio-listado/servicio-listado.component';
-import { ServicioNuevoComponent } from './pages/servicio-nuevo/servicio-nuevo.component';
+import { ServicioListComponent } from './pages/servicio-list/servicio-list.component';
+import { TipoServicioDetailComponent } from './pages/tipo-servicio-detail/tipo-servicio-detail.component';
+import { TipoServicioListComponent } from './pages/tipo-servicio-list/tipo-servicio-list.component';
 
 const routes: Routes = [
   {
     path: '',component: ServiciosComponent,
     children: [
-      {path: 'list', component: ServicioListadoComponent},
-      {path: 'detail/:id', component: ServicioDetalleComponent},
-      {path: 'add', component: ServicioNuevoComponent},
-      {path: 'editar/:id', component: ServicioEditadoComponent},
+      {path: 'list', component: TipoServicioListComponent},
+      {path: 'detail', component: TipoServicioDetailComponent,
+        children: [
+          {path: 'servicio/:id', component: ServicioListComponent},
+        ]
+      },
     ]
   },
 ];

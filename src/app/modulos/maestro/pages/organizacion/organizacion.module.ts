@@ -9,8 +9,8 @@ import { DepartamentosListComponent } from './pages/departamentos-list/departame
 import { DepartamentosDetailComponent } from './pages/departamentos-detail/departamentos-detail.component';
 
 //Plus
-import { MaterialMaestroModule } from '../../plus/material.maestro.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialMaestroModule } from '../../plus/material.maestro.module';
 
 @NgModule({
   declarations: [

@@ -11,6 +11,13 @@ import { ClienteListadoComponent } from './pages/cliente-listado/cliente-listado
 import { ClienteNuevoComponent } from './pages/cliente-nuevo/cliente-nuevo.component';
 
 
+//external FIJARSE SI DEBE O NO 
+import { MaterialMaestroModule } from '../../../../plus/material.maestro.module';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FilterClientePipe } from 'src/app/pipes/filter-cliente.pipe';
+
+
 @NgModule({
   declarations: [
     ClientesComponent,
@@ -18,11 +25,16 @@ import { ClienteNuevoComponent } from './pages/cliente-nuevo/cliente-nuevo.compo
     ClienteDetalleComponent,
     ClienteEditadoComponent,
     ClienteListadoComponent,
-    ClienteNuevoComponent
+    ClienteNuevoComponent,
+    FilterClientePipe
   ],
   imports: [
     CommonModule,
-    ClientesRoutingModule
+    ClientesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    MaterialMaestroModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class ClientesModule { }

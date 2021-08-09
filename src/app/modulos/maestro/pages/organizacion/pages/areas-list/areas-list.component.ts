@@ -10,7 +10,6 @@ import { DepartamentoService } from '../../services/departamento.service';
   styleUrls: ['./areas-list.component.css']
 })
 export class AreasListComponent implements OnInit {
-
   
   idDep = 0;
   areaForm!: FormGroup;

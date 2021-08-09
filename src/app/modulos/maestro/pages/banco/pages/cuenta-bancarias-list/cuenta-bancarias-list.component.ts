@@ -82,10 +82,8 @@ export class CuentaBancariasListComponent implements OnInit {
   deleteCuenta(idCuenta:number) {
     this.cuentaService.deleteCuenta(this.idBanco, idCuenta).subscribe(
       data => {
-      if(data===true){
         this.getCuentasByIdBanco();
-      }
-    });
+      });
   }
 
 }
