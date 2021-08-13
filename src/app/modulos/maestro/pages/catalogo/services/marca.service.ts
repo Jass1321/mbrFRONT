@@ -13,6 +13,11 @@ export class MarcaService {
 
   constructor(private httpClient: HttpClient) { } 
 
+  /* LIST SIMPLE*/
+  public getMarcas(): Observable<any>{
+    return this.httpClient.get(this.URL + '/listMarca')
+  }
+
   /* LIST WITH PAGE*/
   getListWithPage(page: number, size: number, order: string, asc: boolean): Observable<any> {
     return this.httpClient.get<any>(`${this.URL}/listMarcaWithPage?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);
@@ -20,7 +25,7 @@ export class MarcaService {
   
   /* DETAIL */
   getById(id:number): Observable<any> {
-    return this.httpClient.get<any>(`${this.URL}/listMarcaWithPage/${id}`);
+    return this.httpClient.get<any>(`${this.URL}/detail/${id}`);
   }
 
   /* CREATE */

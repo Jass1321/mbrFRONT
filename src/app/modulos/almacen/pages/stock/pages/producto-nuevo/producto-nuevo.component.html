@@ -1,0 +1,137 @@
+<div class="row align-items-md-stretch">
+    <!-- START LIST DEPA-->
+    <div class="col col-md-12 col-lg-12 bg-all">
+        <div class="p-5 rounded-3  bg-white shadow-sm">
+            <h2>NUEVO PRODUCTO</h2>
+
+            <form (ngSubmit)="onCreate()">
+                <!-- Codigo -->
+                <div class="form-group">
+                    <label for="codigo"><b>Codigo:</b></label>
+                    <input type="text" class="form-control" name="codigo" id="codigo" [(ngModel)]="producto.codigo">
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="producto.nombre">
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" [(ngModel)]="producto.precio">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!-- Color -->
+                        <div class="form-group">
+                            <label for="color"><b>Color:</b></label>
+                            <select class="form-control" name="color" id="color" [(ngModel)]="producto.color">
+                                <option value="" selected desabled>Elige Color</option>
+                                <option value="INCOLOR">INCOLOR</option>
+                                <option value="MULTICOLOR">MULTICOLOR</option>
+                                <option value="NEGRO">NEGRO</option>
+                                <option value="BLANCO">BLANCO</option>
+                                <option value="GRIS">GRIS</option>
+                                <option value="AZUL">AZUL</option>
+                                <option value="VERDE">VERDE</option>
+                                <option value="ROJO">ROJO</option>
+                                <option value="AMARILLO">AMARILLO</option>
+                                <option value="NARANJA">NARANJA</option>
+                                <option value="ROSA">ROSA</option>
+                                <option value="MORADO">MORADO</option>
+                                <option value="MARRON">MARRON</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Medida -->
+                        <div class="form-group">
+                            <label for="medida"><b>Medida:</b></label>
+                            <select class="form-control" name="medida" id="medida" [(ngModel)]="producto.medida">
+                                <option value="" selected>Elige Unidad de Medida</option>
+                                <!-- Longitud -->
+                                <option value="KILOMETRO">km</option>
+                                <option value="METRO">m</option>
+                                <option value="CENTIMETRO">cm</option>
+                                <option value="MILIMETRO">mm</option>
+                                <!-- Sistema Ingles Longitud -->
+                                <option value="PULGADA">pulgadas</option>
+                                <option value="PIE">pies</option>
+                                <!-- Masa -->
+                                <option value="KILOGRAMO">kg</option>
+                                <option value="GRAMO">g</option>
+                                <option value="MILIGRAMO">ml</option>
+                                <option value="TONELADA">t</option>
+                                <!-- Sistema Ingles Masa -->
+                                <option value="ONZA">onza</option>
+                                <option value="LIBRA">libra</option>
+                                <!-- Capacidad -->
+                                <option value="KILOLITRO">kl</option>
+                                <option value="LITRO">l</option>
+                                <option value="MILILITRO">ml</option>
+                                <!-- Superficie -->
+                                <option value="METROCUADRADO">m2</option>
+                                <!-- Volumen -->
+                                <option value="METROCUBICO">m3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!-- Familia -->
+                        <div class="form-group">
+                            <label for="familiaElegida"><b>Familia:</b></label>
+                            <select class="form-control" name="familiaElegida" id="familiaElegida" [(ngModel)]="familiaElegida">
+                                <option [ngValue]="null" selected>Elige una Familia</option>
+                                <option [ngValue]="familia" *ngFor="let familia of familias">{{familia.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Sub-Familia -->
+                        <div class="form-group">
+                            <label for="subfamilia"><b>Subfamilia:</b></label>
+                            <select *ngIf="!familiaElegida" class="form-control" name="subfamilia" id="subfamilia" disabled>
+                                <option value="''" selected>Elige una Subfamilia</option>
+                            </select>
+                            <select *ngIf="familiaElegida" class="form-control" name="subfamilia" id="subfamilia" [(ngModel)]="producto.subfamilia">
+                                <option [ngValue]="''" selected>Elige una Subfamilia</option>
+                                <option [ngValue]="subfamilia.id" *ngFor="let subfamilia of familiaElegida.subfamilias">
+                                    {{subfamilia.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Marca -->
+                    <div class="form-group">
+                        <label for="marca"><b>Marca:</b></label>
+                        <select class="form-control" name="marca" id="marca" [(ngModel)]="producto.marca">
+                                <option [ngValue]="''" selected>Elige una Subfamilia</option>
+                                <option [ngValue]="marca.id" *ngFor="let marca of marcas">
+                                    {{marca.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <!-- Estado -->
+                    <div>
+                        <label for="estado"><b>Estado:</b></label>
+                        <div class="form-control" align="center">
+                            <label class="radio-inline">
+                                <input type="radio" name="estado" id="estado"
+                                [value]="true" [(ngModel)]="producto.estado" > Activo
+                            </label> &nbsp;
+                            <label class="radio-inline">
+                                <input type="radio" name="estado" id="estado"
+                                [value]="false" [(ngModel)]="producto.estado" > Desactivo
+                            </label> &nbsp;
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <button class="btn btn-outline-success btn-block">Crear</button>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>

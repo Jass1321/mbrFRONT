@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BusquedaProducto } from 'src/app/modulos/maestro/pages/catalogo/models/busqueda.producto';
-import { ProductoService } from 'src/app/modulos/maestro/pages/catalogo/services/producto.service';
+import { BusquedaProducto } from 'src/app/modulos/almacen/pages/stock/models/busquedaProducto';
+import { ProductoService } from 'src/app/modulos/almacen/services/producto.service';
+import { FamiliaService } from 'src/app/modulos/maestro/pages/catalogo/services/familia.service';
+import { MarcaService } from 'src/app/modulos/maestro/pages/catalogo/services/marca.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-producto-listado',
+  templateUrl: './producto-listado.component.html',
+  styleUrls: ['./producto-listado.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class ProductoListadoComponent implements OnInit {
 
   productos: any[] = [];
   familias: any[] = [];
+  marcas: any[] = [];
 
   busqueda: BusquedaProducto = { 
     codigo: '',
     familia: '',
     subfamilia: '',
-    descripcion: '',
+    nombre: '',
     marca: '',
     color: '',
     medida: '',
@@ -29,16 +32,20 @@ export class ProductoComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private router: Router
-  ){}
- 
-  ngOnInit(){
+    private router: Router,
+    private familiaService: FamiliaService,
+    private marcaService: MarcaService
+  ) { }
+
+  ngOnInit(): void {
+
     this.listaFamilias();
+    this.listaMarcas();
     this.listaProductos();
   }
 
   listaFamilias(): void{
-    this.productoService.familias().subscribe(
+    this.familiaService.getFamilias().subscribe(
       data => {
         this.familias = data;
       },
@@ -48,8 +55,21 @@ export class ProductoComponent implements OnInit {
     );
   }
 
+  
+  listaMarcas(): void{
+    this.marcaService.getMarcas().subscribe(
+      data => {
+        this.marcas = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
   listaProductos(): void {
-    this.productoService.productos(this.busqueda).subscribe(
+    this.productoService.filter(this.busqueda).subscribe(
       data => {
         this.productos = data;
       },
@@ -78,7 +98,7 @@ export class ProductoComponent implements OnInit {
     this.listaProductos();
   }
   clearDescripcion(): void {
-    this.busqueda.descripcion = '';
+    this.busqueda.nombre = '';
     this.listaProductos();
   }
   clearMarca(): void {
@@ -101,7 +121,7 @@ export class ProductoComponent implements OnInit {
     this.busqueda.familia = '';
     this.busqueda.subfamilia = '';
     this.busqueda.codigo = '';
-    this.busqueda.descripcion = '';
+    this.busqueda.nombre = '';
     this.busqueda.marca = '';
     this.busqueda.estado = '';
     this.busqueda.color = '';
@@ -111,5 +131,4 @@ export class ProductoComponent implements OnInit {
     this.listaProductos();
   }
 
-  
 }

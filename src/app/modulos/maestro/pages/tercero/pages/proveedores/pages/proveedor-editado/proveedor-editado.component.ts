@@ -8,13 +8,14 @@ import { takeUntil } from 'rxjs/operators';
 import { ProveedorService } from 'src/app/modulos/maestro/pages/tercero/services/proveedor.service';
 import { Proveedor } from '../../../../models/proveedor';
 
-import { ContactoTercero } from '../../../../models/contactoTercero';
+import { ContactoTercero, Contacto_Tercero } from '../../../../models/contactoTercero';
 import { CuentaTercero } from '../../../../models/cuentaTercero';
 import { DireccionTercero } from '../../../../models/direccionTercero';
 
 import { Pais, PaisGroup, PAISGROUPS } from 'src/app/interfaces/pais.data';
 import { Region, District, Province }  from 'ubigeos';
 import { DataUbigeoI } from 'src/app/interfaces/ubigeo.data';
+import { objectEach } from 'highcharts';
 
 @Component({
   selector: 'app-proveedor-editado',
@@ -45,6 +46,7 @@ export class ProveedorEditadoComponent implements OnInit, OnDestroy {
     proveedorId: null,
     clienteId: null,
   }];
+  c_t: Contacto_Tercero[] = [];
   cuenta: CuentaTercero[] = [{
     id: 0,
     num: '',
@@ -219,7 +221,7 @@ export class ProveedorEditadoComponent implements OnInit, OnDestroy {
  
    /* busqueda de ubigeo */
    onSelectDepartamento(id:any,i:number):void {
-     if(id === "Perú") {
+     if(id === "Peru") {
        this.ubigeoGroups[i].show = true;
      }else {
        this.ubigeoGroups[i].show = false;
@@ -276,19 +278,24 @@ export class ProveedorEditadoComponent implements OnInit, OnDestroy {
    }
  
    /*-----  CONTACTO ACTION -----*/
-   addContacto(Entity:any){
+   addContacto(Entity: any){
      this.contacto.push({
-       id: 0,
-       nombre: '',
-       correo: '',
-       cargo: '',
-       telefono: '',
-       proveedorId: null,
-       clienteId: null,
+      id: null,
+      nombre: '',
+      correo: '',
+      cargo: '',
+      telefono: '',
+      proveedorId: null,
+      clienteId: null,
+    });
+  }
+
+   delContacto(key: number){
+     this.contacto.forEach((c, index) => {
+       if(c.id==key) {
+        this.contacto.splice(index, 1);
+       } 
      });
-   }
-   delContacto(id:any){
-     this.contacto.splice(id, 1);
    }
  
    /*-----  CUENTA ACTION -----*/

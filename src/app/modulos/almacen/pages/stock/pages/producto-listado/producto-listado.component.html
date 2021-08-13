@@ -1,0 +1,217 @@
+<div class="row align-items-md-stretch">
+    <!-- START LIST DEPA-->
+    <div class="col col-md-12 col-lg-7 bg-all">
+        <div class="p-5 rounded-3  bg-white shadow-sm">
+
+            <div class="card-group">
+                <div *ngFor="let producto of productos">
+
+                    <div class="card" style="max-width: 250px; margin-right: 15px; margin-bottom: 15px;">
+                        <img class="card-img-top">
+                        <!--[src]="product.imageUrl"-->
+                        <div class="card-body">
+                            <h5 class="card-header">{{producto.nombre}}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Codigo: {{producto.codigo}}</li>
+                                <li class="list-group-item">Marca: {{producto.marca.nombre}}</li>
+                                <li class="list-group-item">Precio: S/.{{producto.precio}}.00 </li>
+                                <li class="list-group-item">Color: {{producto.color}}</li>
+                                <li class="list-group-item">Medida: {{producto.medida}}</li>
+                                <li class="list-group-item">Familia: {{producto.subfamilia.familia.nombre}}</li>
+                                <li class="list-group-item">Subfamilia: {{producto.subfamilia.nombre}}</li>
+                                <li class="list-group-item">Estado: {{producto.estado}}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END LIST DEPA-->
+
+    <!-- START LIST AREA-->
+    <div class="col col-md-12 col-lg-5 bg-all">
+        <div class="p-5 rounded-3  bg-white shadow-sm ">
+            <div class="container mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <strong><p> Busquedas</p></strong>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- Codigo -->
+                            <div class="form-group">
+                                <label for="codigo"><b>Codigo:</b></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-danger" (click)="clearCodigo()" [disabled]="!busqueda.codigo">Vaciar</button>
+                                    <input type="text" class="form-control" name="codigo" id="codigo" [(ngModel)]="busqueda.codigo">
+                                    <button class="btn btn-outline-success" (click)="listaProductos()" [disabled]="!busqueda.codigo">Filtrar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Familia -->
+                                    <div class="form-group">
+                                        <label for="familiaElegida"><b>Familia:</b></label>
+                                        <select class="form-control" name="familiaElegida" id="familiaElegida" [(ngModel)]="familiaElegida" (change)="onChangeFamilia()">
+                                            <option [ngValue]="null" selected>Elige una Familia</option>
+                                            <option [ngValue]="familia" *ngFor="let familia of familias">{{familia.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Sub-Familia -->
+                                    <div class="form-group">
+                                        <label for="subfamilia"><b>Subfamilia:</b></label>
+                                        <select *ngIf="!familiaElegida" class="form-control" name="subfamilia" id="subfamilia" disabled>
+                                            <option value="''" selected>Elige una Subfamilia</option>
+                                        </select>
+                                        <select *ngIf="familiaElegida" class="form-control" name="subfamilia" id="subfamilia" [(ngModel)]="busqueda.subfamilia" (change)="listaProductos()">
+                                            <option [ngValue]="''" selected>Elige una Subfamilia</option>
+                                            <option [ngValue]="subfamilia.nombre" *ngFor="let subfamilia of familiaElegida.subfamilias">
+                                                {{subfamilia.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Descripcion -->
+                            <div class="form-group">
+                                <label for="nombre"><b>Nombre:</b></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-danger" (click)="clearDescripcion()" [disabled]="!busqueda.nombre">Vaciar</button>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="busqueda.nombre">
+                                    <button class="btn btn-outline-success" (click)="listaProductos()" [disabled]="!busqueda.nombre">Filtrar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Marca -->
+                            <div class="form-group">
+                                <label for="marca"><b>Marca:</b></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-danger" (click)="clearMarca()" [disabled]="!busqueda.marca">Vaciar</button>
+                                    <select class="form-control" name="marca" id="marca" [(ngModel)]="busqueda.marca">
+                                        <option [ngValue]="''" selected>Elige una Subfamilia</option>
+                                        <option [ngValue]="marca.nombre" *ngFor="let marca of marcas">
+                                            {{marca.nombre}}
+                                        </option>
+                                    </select>
+                                    <button class="btn btn-outline-success" (click)="listaProductos()" [disabled]="!busqueda.marca">Filtrar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Color -->
+                                    <div class="form-group">
+                                        <label for="color"><b>Color:</b></label>
+                                        <select class="form-control" name="color" id="color" [(ngModel)]="busqueda.color" (change)="listaProductos()">
+                                            <option value="" selected desabled>Elige Color</option>
+                                            <option value="INCOLOR">INCOLOR</option>
+                                            <option value="MULTICOLOR">MULTICOLOR</option>
+                                            <option value="NEGRO">NEGRO</option>
+                                            <option value="BLANCO">BLANCO</option>
+                                            <option value="GRIS">GRIS</option>
+                                            <option value="AZUL">AZUL</option>
+                                            <option value="VERDE">VERDE</option>
+                                            <option value="ROJO">ROJO</option>
+                                            <option value="AMARILLO">AMARILLO</option>
+                                            <option value="NARANJA">NARANJA</option>
+                                            <option value="ROSA">ROSA</option>
+                                            <option value="MORADO">MORADO</option>
+                                            <option value="MARRON">MARRON</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Medida -->
+                                    <div class="form-group">
+                                        <label for="medida"><b>Medida:</b></label>
+                                        <select class="form-control" name="medida" id="medida" [(ngModel)]="busqueda.medida" (change)="listaProductos()">
+                                            <option value="" selected>Elige Unidad de Medida</option>
+                                            <!-- Longitud -->
+                                            <option value="KILOMETRO">km</option>
+                                            <option value="METRO">m</option>
+                                            <option value="CENTIMETRO">cm</option>
+                                            <option value="MILIMETRO">mm</option>
+                                            <!-- Sistema Ingles Longitud -->
+                                            <option value="PULGADA">pulgadas</option>
+                                            <option value="PIE">pies</option>
+                                            <!-- Masa -->
+                                            <option value="KILOGRAMO">kg</option>
+                                            <option value="GRAMO">g</option>
+                                            <option value="MILIGRAMO">ml</option>
+                                            <option value="TONELADA">t</option>
+                                            <!-- Sistema Ingles Masa -->
+                                            <option value="ONZA">onza</option>
+                                            <option value="LIBRA">libra</option>
+                                            <!-- Capacidad -->
+                                            <option value="KILOLITRO">kl</option>
+                                            <option value="LITRO">l</option>
+                                            <option value="MILILITRO">ml</option>
+                                            <!-- Superficie -->
+                                            <option value="METROCUADRADO">m2</option>
+                                            <!-- Volumen -->
+                                            <option value="METROCUBICO">m3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Precio DESDE->HASTA-->
+                            <div class="form-group">
+                                <label for="precioDesde"><b>Precio Desde:</b></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-danger" (click)="clearPrecioDesde()" [disabled]="!busqueda.precioDesde">Vaciar</button>
+                                    <input type="number" class="form-control" name="precioDesde" id="precioDesde" [(ngModel)]="busqueda.precioDesde">
+                                    <button class="btn btn-outline-success" (click)="listaProductos()" [disabled]="!busqueda.precioDesde">Filtrar</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="precioHasta"><b>Precio Hasta:</b></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-danger" (click)="clearPrecioHasta()" [disabled]="!busqueda.precioHasta">Vaciar</button>
+                                    <input type="number" class="form-control" name="precioHasta" id="precioHasta" [(ngModel)]="busqueda.precioHasta">
+                                    <button class="btn btn-outline-success" (click)="listaProductos()" [disabled]="!busqueda.precioHasta">Filtrar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Estado -->
+                            <div>
+                                <label for="estado"><b>Estado:</b></label>
+                                <div class="form-control" align="center">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="estado" id="estado" checked
+                                        [value]="''" [(ngModel)]="busqueda.estado" (change)="listaProductos()"> Todos
+                                    </label> &nbsp;
+                                    <label class="radio-inline">
+                                        <input type="radio" name="estado" id="estado"
+                                        [value]="true" [(ngModel)]="busqueda.estado" (change)="listaProductos()"> Activo
+                                    </label> &nbsp;
+                                    <label class="radio-inline">
+                                        <input type="radio" name="estado" id="estado"
+                                        [value]="false" [(ngModel)]="busqueda.estado" (change)="listaProductos()"> Desactivo
+                                    </label> &nbsp;
+                                </div>
+                            </div>
+                            <br>
+                            <!-- LIMPIAR -->
+                            <div class="col-4">
+                                <label for="reset"><b>Reset:</b></label>
+                                <button class="btn btn-outline-danger form-control" (click)="clear()">Borrar Filtros</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END LIST AREA-->
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <!-- {{departamentos | json}} -->

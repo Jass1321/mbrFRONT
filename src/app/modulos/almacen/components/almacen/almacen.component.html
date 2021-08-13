@@ -1,1 +1,52 @@
-<p>almacen works!</p>
+<div class="animated fadeIn">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+                <div class="card text-white">
+                    <div class="card-body">
+                        <button type="button" routerLink="#" class="btn btn-transparent p-1 float-right ">
+                            <mat-icon class="d-icons"></mat-icon>
+                        </button>
+                        <h2 class="card-title">Entrada</h2>
+                        <p class="card-text"> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+                <div class="card text-white">
+                    <div class="card-body">
+                        <button type="button" routerLink="#" class="btn btn-transparent p-1 float-right ">
+                            <mat-icon class="d-icons"></mat-icon>
+                        </button>
+                        <h2 class="card-title">Salida</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+                <div class="card text-white">
+                    <div class="card-body">
+                        <button type="button" routerLink="/almacen/stock/list" class="btn btn-transparent p-1 float-right ">
+                            <mat-icon class="d-icons"></mat-icon>
+                        </button>
+                        <h2 class="card-title">Productos</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
+                <div class="card text-white">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-transparent p-1 float-right ">
+                            <mat-icon class="d-icons"></mat-icon>
+                        </button>
+                        <h2 class="card-title">Orden de Traslado</h2>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -12,6 +12,12 @@ export class SubfamiliaService {
 
   constructor(private httpClient: HttpClient) { } 
 
+  
+  /* LIST SIMPLE*/
+  public getSubfamilia(): Observable<any>{
+    return this.httpClient.get(this.URL + '/listSub')
+  }
+
   /* LIST WITH PAGE*/
   getListWithPage(page: number, size: number, order: string, asc: boolean): Observable<any> {
     return this.httpClient.get<any>(`${this.URL}/listSubfamilia?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);

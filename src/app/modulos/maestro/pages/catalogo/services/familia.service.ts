@@ -13,6 +13,11 @@ export class FamiliaService {
 
   constructor(private httpClient: HttpClient) { } 
 
+  /* LIST SIMPLE*/
+  public getFamilias(): Observable<any>{
+    return this.httpClient.get(this.URL + '/listFam')
+  }
+
   /* LIST WITH PAGE*/
   getListWithPage(page: number, size: number, order: string, asc: boolean): Observable<any> {
     return this.httpClient.get<any>(`${this.URL}/listFamilia?` + `page=${page}&size=${size}&order=${order}&asc=${asc}`);

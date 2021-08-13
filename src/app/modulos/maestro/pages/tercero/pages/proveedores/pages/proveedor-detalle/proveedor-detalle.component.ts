@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+
+import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { ProveedorService } from 'src/app/modulos/maestro/pages/tercero/services/proveedor.service';
+import { Proveedor } from '../../../../models/proveedor';
+
 import { ContactoTercero } from '../../../../models/contactoTercero';
 import { CuentaTercero } from '../../../../models/cuentaTercero';
 import { DireccionTercero } from '../../../../models/direccionTercero';
-import { Proveedor } from '../../../../models/proveedor';
+
+import { Pais, PaisGroup, PAISGROUPS } from 'src/app/interfaces/pais.data';
+import { Region, District, Province } from 'ubigeos';
+import { DataUbigeoI } from 'src/app/interfaces/ubigeo.data';
 
 @Component({
   selector: 'app-proveedor-detalle',
@@ -13,23 +22,23 @@ import { Proveedor } from '../../../../models/proveedor';
   styleUrls: ['./proveedor-detalle.component.css']
 })
 export class ProveedorDetalleComponent implements OnInit {
-  
-  idProv!: number;
-  public proveedor: Proveedor = new Proveedor();
 
-  public direccion : DireccionTercero[] = [{
-    id:0,
-    domicilio:'', 
-    pais:'',
-    departamento:'',
-    provincia:'',
-    distrito:'',
-    ubigeo:'',
+  idProv!: number;
+  proveedor: Proveedor = new Proveedor();
+
+  direccion: DireccionTercero[] = [{
+    id: null,
+    domicilio: '',
+    pais: '',
+    departamento: '',
+    provincia: '',
+    distrito: '',
+    ubigeo: '',
     proveedorId: null,
     clienteId: null,
   }];
 
-  public contacto: ContactoTercero[] = [{
+  contacto: ContactoTercero[] = [{
     id: 0,
     nombre: '',
     correo: '',
@@ -39,7 +48,7 @@ export class ProveedorDetalleComponent implements OnInit {
     clienteId: null,
   }];
 
-  public cuenta: CuentaTercero[] = [{
+  cuenta: CuentaTercero[] = [{
     id: 0,
     num: '',
     cci: '',
@@ -49,28 +58,69 @@ export class ProveedorDetalleComponent implements OnInit {
     proveedorId: null
   }];
 
+  ubigeoGroups: DataUbigeoI[] = [{
+    pais_groups: [],
+    depa_groups: [],
+    prov_groups: null,
+    dist_groups: null,
+    ubigeo: "",
+    show: false,
+  }]
+
   constructor(
     private proveedorService: ProveedorService,
     private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.idProv = this.activatedRoute.snapshot.params['id'];
-
-    this.detailProv();
+    this.onDetail();
   }
 
-  detailProv(): void {
+  onDetail(): void {
     this.proveedorService.getProveedorById(this.idProv).subscribe(
       json => {
         this.proveedor = json.proveedor;
         this.direccion = json.direccion;
+        if (this.direccion.length > 1) {
+          for (let i = 0; i < this.direccion.length; i++) {
+            if (this.direccion[i].pais === "Peru") {
+              if (i === 0) {
+                this.ubigeoGroups[i] = {
+                  pais_groups: [],
+                  depa_groups: [],
+                  prov_groups: Region.instance(this.direccion[i].departamento).getProvincies(),
+                  dist_groups: Province.instance(this.direccion[i].provincia).getDistricts(),
+                  ubigeo: "",
+                  show: true
+                }
+              } else {
+                this.ubigeoGroups.push({
+                  pais_groups: [],
+                  depa_groups: [],
+                  prov_groups: Region.instance(this.direccion[i].departamento).getProvincies(),
+                  dist_groups: Province.instance(this.direccion[i].provincia).getDistricts(),
+                  ubigeo: "",
+                  show: true
+                });
+              }
+            } else {
+              this.ubigeoGroups.push({
+                pais_groups: [],
+                depa_groups: [],
+                prov_groups: null,
+                dist_groups: null,
+                ubigeo: "",
+                show: false
+              });
+            }
+          }
+        }
         this.contacto = json.contacto;
         this.cuenta = json.cuenta;
         console.log(json);
-      });
+      }, error => console.log(error));
   }
 
 }

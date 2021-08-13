@@ -5,7 +5,6 @@ import { ProveedoresRoutingModule } from './proveedores-routing.module';
 import { ProveedoresComponent } from './components/proveedores.component';
 
 import { ProveedorNuevoComponent } from './pages/proveedor-nuevo/proveedor-nuevo.component';
-import { ProveedorBusquedaComponent } from './pages/proveedor-busqueda/proveedor-busqueda.component';
 import { ProveedorDetalleComponent } from './pages/proveedor-detalle/proveedor-detalle.component';
 import { ProveedorListadoComponent } from './pages/proveedor-listado/proveedor-listado.component';
 import { ProveedorEditadoComponent } from './pages/proveedor-editado/proveedor-editado.component';
@@ -21,7 +20,6 @@ import { FilterProveedorPipe } from 'src/app/pipes/filter-proveedor.pipe';
   declarations: [
     ProveedoresComponent,
     ProveedorNuevoComponent,
-    ProveedorBusquedaComponent,
     ProveedorDetalleComponent,
     ProveedorListadoComponent,
     ProveedorEditadoComponent,

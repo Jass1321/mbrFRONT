@@ -6,12 +6,10 @@ import { CatalogoComponent } from './components/catalogo.component';
 
 //External Si sirve?
 import { FormsModule } from '@angular/forms';
-import { ProductoComponent } from '../../../almacen/producto/producto.component';
 
 @NgModule({
   declarations: [
-    CatalogoComponent,
-    ProductoComponent
+    CatalogoComponent
   ],
   imports: [
     CommonModule,

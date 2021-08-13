@@ -1,0 +1,31 @@
+.signo {
+    --bs-breadcrumb-divider: '📁';
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.breadcrumb-item {
+    font-size: 17px;
+    font-weight: 500;
+    float: inline-end;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+    color: gray;
+}
+
+.titulo {
+    font-size: 17px;
+    font-weight: 600;
+    text-shadow: 0px 0px black;
+    font-family: 'Arial';
+}
+
+.espacio {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
